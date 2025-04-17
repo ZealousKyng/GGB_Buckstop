@@ -14,7 +14,12 @@ namespace BucStop.Services
         private readonly HttpClient _httpClient;
         private readonly ILogger<ApiHeartbeatService> _logger;
         private readonly IConfiguration _config;
-        private readonly string _healthCheckUrl;
+        private readonly Dictionary<string, string> urlDic;
+        private readonly string _gatewayHealthCheckUrl;
+        private readonly string _snakeHealthCheckUrl;
+        private readonly string _tetrisHealthCheckUrl;
+        private readonly string _pongHealthCheckUrl;
+
 
         public ApiHeartbeatService(HttpClient httpClient, ILogger<ApiHeartbeatService> logger, IConfiguration config)
         {
@@ -22,31 +27,52 @@ namespace BucStop.Services
             _logger = logger;
             _config = config;
             var gateway = _config["Gateway"];
-            _healthCheckUrl = $"{gateway}/health";
+            _gatewayHealthCheckUrl = $"{gateway}/health";
+
+            var snake = _config["Snake"];
+            _snakeHealthCheckUrl = $"{snake}/health";
+
+            var tetris = _config["Tetris"];
+            _tetrisHealthCheckUrl = $"{tetris}/health";
+
+            var pong = _config["Pong"];
+            _pongHealthCheckUrl = $"{pong}/health";
+
+            urlDic = new Dictionary<string, string>()
+            {
+                { "API GateWay", _gatewayHealthCheckUrl },
+                { "Snake", _snakeHealthCheckUrl },
+                { "Tetris", _tetrisHealthCheckUrl },
+                { "Pong", _pongHealthCheckUrl }
+            };
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                try
-                {
-                    var response = await _httpClient.GetAsync(_healthCheckUrl, stoppingToken);
 
-                    if (response.IsSuccessStatusCode)
+                foreach (var (name, url) in urlDic)
+                {
+
+                    try
                     {
-                        _logger.LogInformation("{Category}: API Gateway is healthy.", "APIHeartbeat");
+                        var response = await _httpClient.GetAsync(url, stoppingToken);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            _logger.LogInformation("{Category}: {Service} is healthy.", "APIHeartbeat", name);
+                        }
+                        else
+                        {
+                            _logger.LogWarning("{Category}: {Service} returned {StatusCode}.", "APIHeartbeat", name, response.StatusCode);
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        _logger.LogWarning("{Category}: API Gateway returned {StatusCode}.", "APIHeartbeat", response.StatusCode);
+                        _logger.LogError("{Category}: {Service} heartbeat failed - {ErrorMessage} url: {URL}", "APIHeartbeat", name, ex.Message, url);
                     }
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError("{Category}: API Gateway heartbeat failed - {ErrorMessage}", "APIHeartbeat", ex.Message);
-                }
-
                 await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken); // Runs every 5 minutes
             }
         }
