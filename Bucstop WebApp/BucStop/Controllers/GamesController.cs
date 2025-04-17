@@ -165,5 +165,11 @@ namespace BucStop.Controllers
         {
             return View();
         }
+        
+        //Takes the user to the deprecated mineswepper page
+        public IActionResult Mineswepper()
+        {
+            return View();
+        }
     }
 }

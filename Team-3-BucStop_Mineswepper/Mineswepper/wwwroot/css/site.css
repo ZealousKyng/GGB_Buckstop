@@ -1,0 +1,44 @@
+/* CSS for Mineswepper game */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+canvas {
+    border: 1px solid #888;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.instructions {
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+    line-height: 1.5;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+.instructions h2 {
+    margin-top: 0;
+}
+
+.instructions ul {
+    padding-left: 20px;
+} 

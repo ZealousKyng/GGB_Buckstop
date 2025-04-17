@@ -22,5 +22,13 @@
     "Description": "Pong Description",
     "Thumbnail": "/images/pong.jpg",
     "PlayCount": 0
+  },
+  {
+    "Id": 4,
+    "Title": "Mineswepper",
+    "Content": "/js/mineswepper.js",
+    "Description": "Classic puzzle game where you must avoid mines and use logic to clear the board. Reveal numbers that show how many mines are adjacent to each cell.",
+    "Thumbnail": "/images/mineswepper.jpg",
+    "PlayCount": 0
   }
 ]

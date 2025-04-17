@@ -31,7 +31,7 @@ namespace Gateway
         {
             try
             {
-                var gameKeys = new[] { "Snake", "Tetris", "Pong" };
+                var gameKeys = new[] { "Snake", "Tetris", "Pong", "Mineswepper" };
 
                 var fetchTasks = new List<Task>();
                 foreach (var game in gameKeys)
