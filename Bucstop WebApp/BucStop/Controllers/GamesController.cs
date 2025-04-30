@@ -152,19 +152,5 @@ namespace BucStop.Controllers
 
             return games;
         }
-
-
-
-        //Takes the user to the deprecated snake page
-        public IActionResult Snake()
-        {
-            return View();
-        }
-
-        //Takes the user to the deprecated tetris page
-        public IActionResult Tetris()
-        {
-            return View();
-        }
     }
 }
