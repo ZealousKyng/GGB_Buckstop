@@ -18,18 +18,11 @@ jobs:
       
       - name: Debug - Show repository structure
         run: |
-          echo "=========================================="
-          echo "Repository Structure"
-          echo "=========================================="
-          echo "Root contents:"
+          echo "=== Repository root contents ==="
           ls -la
           echo ""
-          echo "Looking for .csproj files:"
+          echo "=== Looking for BucStop project ==="
           find . -name "*.csproj" -type f
-          echo ""
-          echo "Looking for .sln files:"
-          find . -name "*.sln" -type f
-          echo "=========================================="
       
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -41,285 +34,122 @@ jobs:
         with:
           node-version: '20'
       
+      # Restore dependencies - adjust path based on actual structure
       - name: Restore dependencies
-        run: |
-          echo "Restoring .NET dependencies..."
-          
-          # Try to find and restore solution file first
-          SLN_FILE=$(find . -name "*.sln" | head -1)
-          if [ -n "$SLN_FILE" ]; then
-            echo "Found solution file: $SLN_FILE"
-            dotnet restore "$SLN_FILE"
-          else
-            # Try to find BucStop.csproj
-            CSPROJ_FILE=$(find . -name "BucStop.csproj" | head -1)
-            if [ -n "$CSPROJ_FILE" ]; then
-              echo "Found project file: $CSPROJ_FILE"
-              dotnet restore "$CSPROJ_FILE"
-            else
-              echo "No solution or project file found, trying default restore..."
-              dotnet restore
-            fi
-          fi
+        run: dotnet restore
       
+      # Build your API
       - name: Build API
-        run: |
-          echo "Building BucStop API..."
-          
-          # Try to build solution or project
-          SLN_FILE=$(find . -name "*.sln" | head -1)
-          if [ -n "$SLN_FILE" ]; then
-            echo "Building solution: $SLN_FILE"
-            dotnet build "$SLN_FILE" --configuration Release --no-restore
-          else
-            CSPROJ_FILE=$(find . -name "BucStop.csproj" | head -1)
-            if [ -n "$CSPROJ_FILE" ]; then
-              echo "Building project: $CSPROJ_FILE"
-              dotnet build "$CSPROJ_FILE" --configuration Release --no-restore
-            else
-              echo "Building from current directory..."
-              dotnet build --configuration Release --no-restore
-            fi
-          fi
+        run: dotnet build --configuration Release --no-restore
       
+      # Start your API server in the background
       - name: Start BucStop API Server
         run: |
-          echo "Starting BucStop API..."
-          
-          # Find the BucStop.dll file in Release build
+          # Find the BucStop.dll file
           DLL_PATH=$(find . -name "BucStop.dll" -path "*/bin/Release/*" | head -1)
-          
           if [ -z "$DLL_PATH" ]; then
-            echo "BucStop.dll not found in Release build"
-            echo "Searching for any BucStop.dll..."
-            find . -name "BucStop.dll"
+            echo "Error: BucStop.dll not found"
             exit 1
           fi
           
-          echo "Found DLL at: $DLL_PATH"
-          DLL_DIR=$(dirname "$DLL_PATH")
-          echo "DLL directory: $DLL_DIR"
-          
-          # Start the API from the DLL directory
-          cd "$DLL_DIR"
-          nohup dotnet BucStop.dll --urls "http://0.0.0.0:5230" > api.log 2>&1 &
-          API_PID=$!
-          echo $API_PID > "$GITHUB_WORKSPACE/api_pid.txt"
-          echo "Started API with PID: $API_PID"
-          cd "$GITHUB_WORKSPACE"
+          echo "Starting API from: $DLL_PATH"
+          dotnet "$DLL_PATH" --urls "http://0.0.0.0:5230" &
+          echo $! > api_pid.txt
           
           # Wait for API to be ready
           echo "Waiting for BucStop API to start..."
-          MAX_ATTEMPTS=30
-          ATTEMPT=0
-          
-          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-            if curl -s -f http://localhost:5230/ > /dev/null 2>&1; then
+          for i in {1..30}; do
+            if curl -s http://localhost:5230/ > /dev/null 2>&1; then
               echo "BucStop API is up and running!"
-              sleep 2
               break
             fi
-            
-            ATTEMPT=$((ATTEMPT + 1))
-            echo "Waiting for API... (Attempt $ATTEMPT/$MAX_ATTEMPTS)"
+            echo "Waiting for API... ($i/30)"
             sleep 2
           done
-          
-          if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
-            echo "API failed to start within timeout"
-            echo "=== API Logs ==="
-            cat "$DLL_DIR/api.log" 2>/dev/null || echo "No log file found"
-            exit 1
-          fi
         env:
           ASPNETCORE_ENVIRONMENT: Development
       
+      # Test main endpoints
       - name: Test Main API Endpoints
         run: |
-          echo "=========================================="
-          echo "Testing BucStop API Endpoints"
-          echo "=========================================="
+          echo "Testing main BucStop endpoints..."
           
-          ALL_PASSED=true
-          
-          # Test Home endpoint
-          echo ""
+          # Test home page
           echo "Testing Home (/)..."
           response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/)
-          time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230/)
-          if [ "$response" -eq 200 ]; then
-            echo "   Status: $response | Response time: ${time}s"
+          if [ $response -eq 200 ]; then
+            echo "✅ Home endpoint OK (Status: $response)"
           else
-            echo "   Status: $response | Response time: ${time}s"
-            ALL_PASSED=false
+            echo "❌ Home endpoint failed (Status: $response)"
+            exit 1
           fi
           
           # Test Games endpoint
-          echo ""
           echo "Testing Games (/Games)..."
           response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/Games)
-          time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230/Games)
-          if [ "$response" -eq 200 ]; then
-            echo "   Status: $response | Response time: ${time}s"
+          if [ $response -eq 200 ]; then
+            echo "✅ Games endpoint OK (Status: $response)"
           else
-            echo "   Status: $response | Response time: ${time}s"
-            ALL_PASSED=false
-          fi
-          
-          echo ""
-          echo "=========================================="
-          if [ "$ALL_PASSED" = "true" ]; then
-            echo "All critical endpoints passed!"
-          else
-            echo "Some endpoints failed"
+            echo "❌ Games endpoint failed (Status: $response)"
             exit 1
           fi
-          echo "=========================================="
       
-      - name: Test API Response Content
-        run: |
-          echo "Validating API response content..."
-          
-          # Check home page returns HTML
-          echo "Checking home page content..."
-          CONTENT=$(curl -s http://localhost:5230/)
-          if echo "$CONTENT" | grep -q "<!DOCTYPE\|<html"; then
-            echo "Home page returns valid HTML"
-          else
-            echo "Home page does not return valid HTML"
-            echo "Response preview: ${CONTENT:0:200}..."
-          fi
-          
-          # Check Games page
-          echo "Checking Games page content..."
-          CONTENT=$(curl -s http://localhost:5230/Games)
-          if echo "$CONTENT" | grep -q "<!DOCTYPE\|<html"; then
-            echo "Games page returns valid HTML"
-          else
-            echo "Games page does not return valid HTML"
-          fi
-        continue-on-error: true
-      
+      # Validate OpenAPI spec if it exists
       - name: Validate OpenAPI Specification
         run: |
           npm install -g @apidevtools/swagger-cli
           
-          echo "Searching for OpenAPI specification..."
-          
-          # Check for openapi.json in various locations
-          OPENAPI_FILE=""
           if [ -f "openapi.json" ]; then
-            OPENAPI_FILE="openapi.json"
+            echo "Validating OpenAPI specification..."
+            swagger-cli validate "openapi.json"
           else
-            OPENAPI_FILE=$(find . -name "openapi.json" | head -1)
-          fi
-          
-          if [ -z "$OPENAPI_FILE" ]; then
             echo "No OpenAPI file found, skipping validation"
-            exit 0
-          fi
-          
-          echo "Found OpenAPI file: $OPENAPI_FILE"
-          
-          # Check if file has content
-          if [ ! -s "$OPENAPI_FILE" ]; then
-            echo "OpenAPI file is empty, skipping validation"
-            exit 0
-          fi
-          
-          echo "Validating OpenAPI specification..."
-          if swagger-cli validate "$OPENAPI_FILE"; then
-            echo "OpenAPI specification is valid"
-          else
-            echo "OpenAPI specification has validation errors"
-            exit 1
           fi
         continue-on-error: true
       
+      # Check API response times
+      - name: API Performance Check
+        run: |
+          echo "Checking API response times..."
+          
+          TIME=$(curl -o /dev/null -s -w '%{time_total}\n' http://localhost:5230/)
+          echo "Home page response time: ${TIME}s"
+          
+          TIME=$(curl -o /dev/null -s -w '%{time_total}\n' http://localhost:5230/Games)
+          echo "Games page response time: ${TIME}s"
+        continue-on-error: true
+      
+      # Test Swagger endpoint
       - name: Test Swagger Documentation
         run: |
-          echo "Testing Swagger/OpenAPI endpoints..."
-          
-          FOUND=false
-          for endpoint in "/swagger/v1/swagger.json" "/swagger/swagger.json" "/openapi.json"; do
-            response=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:5230$endpoint")
-            if [ "$response" -eq 200 ]; then
-              echo "Swagger documentation found at: $endpoint"
-              FOUND=true
-              break
-            fi
-          done
-          
-          if [ "$FOUND" = "false" ]; then
-            echo "No Swagger documentation endpoint found (optional)"
+          echo "Testing Swagger endpoint..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/swagger/v1/swagger.json)
+          if [ $response -eq 200 ]; then
+            echo "✅ Swagger endpoint OK (Status: $response)"
+          else
+            echo "⚠️ Swagger endpoint not available (Status: $response)"
           fi
         continue-on-error: true
       
-      - name: Show API Logs on Failure
-        if: failure()
-        run: |
-          echo "=========================================="
-          echo "API Error Logs"
-          echo "=========================================="
-          
-          # Find and display API log
-          DLL_DIR=$(find . -name "BucStop.dll" -path "*/bin/Release/*" -exec dirname {} \; | head -1)
-          if [ -n "$DLL_DIR" ] && [ -f "$DLL_DIR/api.log" ]; then
-            echo "API logs:"
-            cat "$DLL_DIR/api.log"
-          else
-            echo "No API log file found"
-          fi
-          
-          echo ""
-          echo "Process Information:"
-          ps aux | grep dotnet || echo "No dotnet processes found"
-      
+      # Stop API server
       - name: Stop API Server
         if: always()
         run: |
-          echo "Shutting down BucStop API..."
-          
           if [ -f api_pid.txt ]; then
-            PID=$(cat api_pid.txt)
-            echo "Stopping API (PID: $PID)..."
-            
-            # Try graceful shutdown
-            kill "$PID" 2>/dev/null || true
+            echo "Stopping BucStop API..."
+            kill $(cat api_pid.txt) || true
             sleep 2
-            
-            # Force kill if still running
-            if ps -p "$PID" > /dev/null 2>&1; then
-              echo "Forcing API shutdown..."
-              kill -9 "$PID" 2>/dev/null || true
-            fi
-            
-            echo "API stopped"
-          else
-            echo "No PID file found, killing any dotnet processes..."
-            pkill -f "dotnet.*BucStop" || true
+            kill -9 $(cat api_pid.txt) 2>/dev/null || true
           fi
       
-      - name: Upload API Logs and Results
+      # Upload test results
+      - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: api-test-results-${{ github.run_number }}
+          name: api-test-results
           path: |
-            **/api.log
             **/TestResults/**
             **/*.trx
             **/*.log
           if-no-files-found: ignore
-      
-      - name: Test Summary
-        if: always()
-        run: |
-          echo "=========================================="
-          echo "BucStop API Test Summary"
-          echo "=========================================="
-          echo "Workflow: ${{ github.workflow }}"
-          echo "Branch: ${{ github.ref_name }}"
-          echo "Commit: ${{ github.sha }}"
-          echo "Triggered by: ${{ github.event_name }}"
-          echo "=========================================="
