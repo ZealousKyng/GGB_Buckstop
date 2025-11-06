@@ -1,23 +1,33 @@
-name: Swagger Editor Validate
 
+name: Swagger Editor Validate
 on:
   push:
     paths:
       - '**/*.yaml'
       - '**/*.yml'
+      - '**/*.json'
   pull_request:
     paths:
       - '**/*.yaml'
       - '**/*.yml'
+      - '**/*.json'
 
 jobs:
   swagger-validation:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Swagger Editor Validate
-        uses: char0n/swagger-editor-validate@v1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          swagger_file: github/workflows/swagger-editor-validate.yml
+          node-version: '20'
+      
+      - name: Install Swagger CLI
+        run: npm install -g @apidevtools/swagger-cli
+      
+      - name: Validate OpenAPI Definition
+        run: swagger-cli validate 'openapi.json'
+          
