@@ -30,4 +30,5 @@ jobs:
         uses: char0n/swagger-editor-validate@v1
         with:
           swagger-editor-url: http://localhost:8080/
-          definition-file:  Bucstop WebApp/BucStop/openapi.json
+          definition-file: "Bucstop WebApp/BucStop/openapi.json"
+
