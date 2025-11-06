@@ -1,3 +1,4 @@
+
 name: Swagger Editor Validate
 on:
   push:
