@@ -20,4 +20,4 @@ jobs:
       - name: Swagger Editor Validate
         uses: char0n/swagger-editor-validate@v1
         with:
-          swagger_file: .github/workflows/swagger-editor-validate.yml
+          swagger_file: github/workflows/swagger-editor-validate.yml
