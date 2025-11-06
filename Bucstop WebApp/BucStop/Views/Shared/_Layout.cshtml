@@ -51,6 +51,21 @@
                             <a class="nav-link text-dark" asp-controller="Hello" asp-action="Index">Hello</a>
                         </li>
 
+                        @* Button for the future game submission page: Once the page is made delete href and onclick and uncomment the asp's *@
+                        <!-- TODO: Replace 'Games' with your new controller name -->
+                        <!-- TODO: Replace 'Submit' with your new action or route -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               href="#"
+                               onclick="alert('Game Submission Page Coming Soon!'); return false;">
+                                @*asp-area=""
+                                asp-controller="Games"
+                                asp-action="Submit">*@
+                                Submit Game
+                            </a>
+                        </li>
+
+
 
                     </ul>
                     <partial name="_LoginPartial"></partial>

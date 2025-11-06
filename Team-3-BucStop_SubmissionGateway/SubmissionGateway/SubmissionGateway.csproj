@@ -1,0 +1,23 @@
+<!--
+#	File name: SubmissionGateway.csproj
+#	  Author:	      Jericho McGowan
+#	  Date Created:	2025-10-30
+# 	Last revised:	2025-10-30
+#	  Description:	Submission Gateway project file for BucStop
+#	
+-->
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>
+

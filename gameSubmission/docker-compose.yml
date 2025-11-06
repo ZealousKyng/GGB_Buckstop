@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  bucstop-webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bucstop-webapp
+    ports:
+      - "8080:80"
+    volumes:
+      # Persist game files in a volume
+      - game-data:/app/games
+    restart: unless-stopped
+
+volumes:
+  game-data:
+    driver: local

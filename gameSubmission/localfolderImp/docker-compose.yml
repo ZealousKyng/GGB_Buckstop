@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  bucstop-webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bucstop-webapp
+    ports:
+      - "8080:80"
+    volumes:
+      # Use local folder instead of Docker volume
+      - ./games:/app/games
+    restart: unless-stopped
