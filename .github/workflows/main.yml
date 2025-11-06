@@ -13,32 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Check if branch is recently active
-        id: check_activity
-        run: |
-          # Get the last commit date for this branch
-          LAST_COMMIT_DATE=$(git log -1 --format=%ci)
-          LAST_COMMIT_UNIX=$(date -d "$LAST_COMMIT_DATE" +%s)
-          NOW=$(date +%s)
-          DAYS_OLD=$(( ($NOW - $LAST_COMMIT_UNIX) / 86400 ))
-          
-          echo "Branch last updated $DAYS_OLD days ago"
-          
-          # Skip if branch is older than 30 days
-          if [ $DAYS_OLD -gt 30 ]; then
-            echo "Branch too old, skipping tests"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-      
-      
-      - name: Checkout repository
-        if: steps.check_activity.outputs.skip != 'true'
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -214,4 +188,4 @@ jobs:
           name: api-test-results
           path: |
             **/api.log
-          if-no-files-found: ignore
+          if-no-files-found: ign
