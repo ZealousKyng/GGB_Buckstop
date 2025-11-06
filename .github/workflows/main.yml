@@ -1,4 +1,4 @@
-
+name: API Testing
 
 on:
   push:
@@ -19,130 +19,316 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '6.0.x'
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
       
-      # Install dependencies for your API
       - name: Restore dependencies
-        working-directory: 'Bucstop WebApp/BucStop'
+        working-directory: 'Buckstop WebApp/BucStop'
         run: dotnet restore
       
-      # Build your API
       - name: Build API
-        working-directory: 'Bucstop WebApp/BucStop'
+        working-directory: 'Buckstop WebApp/BucStop'
         run: dotnet build --configuration Release --no-restore
       
-      # Start your API server in the background
       - name: Start BucStop API Server
-        working-directory: 'Bucstop WebApp/BucStop'
+        working-directory: 'Buckstop WebApp/BucStop'
         run: |
-          dotnet run --configuration Release --no-build --urls "http://0.0.0.0:5230" &
-          echo $! > ../../api_pid.txt
+          # Start API in background
+          dotnet run --configuration Release --no-build --urls "http://0.0.0.0:5230" > ../../api.log 2>&1 &
+          API_PID=$!
+          echo $API_PID > ../../api_pid.txt
+          echo "Started API with PID: $API_PID"
           
-          # Wait for API to be ready
+          # Wait for API to be ready with better health checking
           echo "Waiting for BucStop API to start..."
-          for i in {1..30}; do
-            if curl -s http://localhost:5230/health > /dev/null 2>&1 || \
-               curl -s http://localhost:5230/ > /dev/null 2>&1; then
-              echo "BucStop API is up and running!"
-              break
+          MAX_ATTEMPTS=30
+          ATTEMPT=0
+          
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            if curl -s -f http://localhost:5230/ > /dev/null 2>&1; then
+              echo "✅ BucStop API is up and running!"
+              
+              # Give it a moment to fully initialize
+              sleep 2
+              
+              # Verify it's actually responding with content
+              if curl -s http://localhost:5230/ | grep -q "<!DOCTYPE\|<html"; then
+                echo "✅ API is serving content correctly"
+                break
+              fi
             fi
-            echo "Waiting for API... ($i/30)"
+            
+            ATTEMPT=$((ATTEMPT + 1))
+            echo "Waiting for API... (Attempt $ATTEMPT/$MAX_ATTEMPTS)"
             sleep 2
           done
-      
-      # Test health endpoint
-      - name: Test API Health Endpoint
-        run: |
-          echo "Testing BucStop API health..."
           
-          # Test health endpoint (if available)
-          if curl -f http://localhost:5230/health 2>/dev/null; then
-            echo "✓ Health endpoint is responding"
-          else
-            echo "⚠ Health endpoint not available, testing root..."
-            curl -f http://localhost:5230/ || echo "⚠ Root endpoint returned an error"
+          if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+            echo "❌ API failed to start within timeout period"
+            echo "=== API Logs ==="
+            cat ../../api.log
+            exit 1
           fi
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ASPNETCORE_URLS: http://0.0.0.0:5230
       
-      # Test main endpoints
-      - name: Test Main API Endpoints
+      - name: Test Health Endpoint
         run: |
-          echo "Testing main BucStop endpoints..."
+          echo "Testing BucStop health endpoint..."
           
-          # Test home page
-          echo "Testing Home (/)..."
-          curl -f -s http://localhost:5230/ > /dev/null && echo "✓ Home endpoint OK" || echo "✗ Home endpoint failed"
-          
-          # Test Games endpoint
-          echo "Testing Games (/Games)..."
-          curl -f -s http://localhost:5230/Games > /dev/null && echo "✓ Games endpoint OK" || echo "✗ Games endpoint failed"
-          
-          # Test API Gateway endpoint
-          echo "Testing Gateway (/Gateway)..."
-          curl -f -s http://localhost:5230/Gateway > /dev/null && echo "✓ Gateway endpoint OK" || echo "✗ Gateway endpoint failed"
+          # Try health endpoint if it exists
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/health)
+          if [ $response -eq 200 ]; then
+            echo "✅ Health endpoint OK (Status: $response)"
+          elif [ $response -eq 404 ]; then
+            echo "⚠️ Health endpoint not configured (Status: 404)"
+          else
+            echo "⚠️ Health endpoint returned status: $response"
+          fi
         continue-on-error: true
       
-      # Validate OpenAPI spec if it exists
+      - name: Test Main API Endpoints
+        run: |
+          echo "=========================================="
+          echo "Testing BucStop API Endpoints"
+          echo "=========================================="
+          
+          ALL_PASSED=true
+          
+          # Test Home endpoint
+          echo ""
+          echo "1️⃣ Testing Home (/)..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/)
+          time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230/)
+          if [ $response -eq 200 ]; then
+            echo "   ✅ Status: $response | Response time: ${time}s"
+          else
+            echo "   ❌ Status: $response | Response time: ${time}s"
+            ALL_PASSED=false
+          fi
+          
+          # Test Games endpoint
+          echo ""
+          echo "2️⃣ Testing Games (/Games)..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/Games)
+          time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230/Games)
+          if [ $response -eq 200 ]; then
+            echo "   ✅ Status: $response | Response time: ${time}s"
+          else
+            echo "   ❌ Status: $response | Response time: ${time}s"
+            ALL_PASSED=false
+          fi
+          
+          # Test Gateway endpoint
+          echo ""
+          echo "3️⃣ Testing Gateway (/Gateway)..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/Gateway)
+          time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230/Gateway)
+          if [ $response -eq 200 ]; then
+            echo "   ✅ Status: $response | Response time: ${time}s"
+          elif [ $response -eq 404 ]; then
+            echo "   ⚠️ Endpoint not found (Status: 404)"
+          else
+            echo "   ⚠️ Status: $response | Response time: ${time}s"
+          fi
+          
+          echo ""
+          echo "=========================================="
+          if [ "$ALL_PASSED" = true ]; then
+            echo "✅ All critical endpoints passed!"
+            echo "=========================================="
+          else
+            echo "❌ Some endpoints failed"
+            echo "=========================================="
+            exit 1
+          fi
+      
+      - name: Test API Response Content
+        run: |
+          echo "Validating API response content..."
+          
+          # Check that home page returns HTML
+          echo "Checking home page content..."
+          CONTENT=$(curl -s http://localhost:5230/)
+          if echo "$CONTENT" | grep -q "<!DOCTYPE\|<html"; then
+            echo "✅ Home page returns valid HTML"
+          else
+            echo "❌ Home page does not return valid HTML"
+            echo "Response preview: ${CONTENT:0:200}..."
+          fi
+          
+          # Check Games page
+          echo "Checking Games page content..."
+          CONTENT=$(curl -s http://localhost:5230/Games)
+          if echo "$CONTENT" | grep -q "<!DOCTYPE\|<html"; then
+            echo "✅ Games page returns valid HTML"
+          else
+            echo "❌ Games page does not return valid HTML"
+          fi
+        continue-on-error: true
+      
       - name: Validate OpenAPI Specification
         run: |
           npm install -g @apidevtools/swagger-cli
           
-          if [ -f "Bucstop WebApp/BucStop/openapi.json" ]; then
-            echo "Validating OpenAPI specification..."
-            swagger-cli validate "Bucstop WebApp/BucStop/openapi.json"
+          echo "Searching for OpenAPI specification..."
+          
+          # Check multiple possible locations
+          if [ -f "openapi.json" ]; then
+            echo "Found OpenAPI spec at root"
+            FILE_PATH="openapi.json"
+          elif [ -f "Buckstop WebApp/BucStop/openapi.json" ]; then
+            echo "Found OpenAPI spec in BucStop folder"
+            FILE_PATH="Buckstop WebApp/BucStop/openapi.json"
           else
-            echo "No OpenAPI file found at 'Bucstop WebApp/BucStop/openapi.json'"
-            echo "Skipping OpenAPI validation"
+            echo "⚠️ No OpenAPI file found, skipping validation"
+            exit 0
+          fi
+          
+          # Check if file has content
+          if [ ! -s "$FILE_PATH" ]; then
+            echo "⚠️ OpenAPI file is empty, skipping validation"
+            exit 0
+          fi
+          
+          echo "Validating OpenAPI specification..."
+          if swagger-cli validate "$FILE_PATH"; then
+            echo "✅ OpenAPI specification is valid"
+          else
+            echo "❌ OpenAPI specification has validation errors"
+            exit 1
           fi
         continue-on-error: true
       
-      # Check API response times
-      - name: API Performance Check
+      - name: Test Swagger/OpenAPI Endpoint
         run: |
-          echo "Checking API response times..."
+          echo "Testing Swagger documentation endpoint..."
           
-          # Test response time for home page
-          TIME=$(curl -o /dev/null -s -w '%{time_total}\n' http://localhost:5230/)
-          echo "Home page response time: ${TIME}s"
+          # Try common Swagger endpoints
+          endpoints=(
+            "/swagger/v1/swagger.json"
+            "/swagger/swagger.json"
+            "/openapi.json"
+            "/api-docs"
+          )
           
-          # Test response time for Games
-          TIME=$(curl -o /dev/null -s -w '%{time_total}\n' http://localhost:5230/Games)
-          echo "Games page response time: ${TIME}s"
+          FOUND=false
+          for endpoint in "${endpoints[@]}"; do
+            response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230$endpoint)
+            if [ $response -eq 200 ]; then
+              echo "✅ Swagger endpoint found at: $endpoint (Status: $response)"
+              FOUND=true
+              break
+            fi
+          done
+          
+          if [ "$FOUND" = false ]; then
+            echo "⚠️ No Swagger documentation endpoint found (this is optional)"
+          fi
         continue-on-error: true
       
-      # Display API logs for debugging
-      - name: Show API Logs
+      - name: API Performance Summary
+        run: |
+          echo "=========================================="
+          echo "API Performance Summary"
+          echo "=========================================="
+          
+          # Measure response times for key endpoints
+          declare -a endpoints=("/" "/Games")
+          declare -a names=("Home" "Games")
+          
+          for i in "${!endpoints[@]}"; do
+            endpoint="${endpoints[$i]}"
+            name="${names[$i]}"
+            
+            # Make 3 requests and average the time
+            total=0
+            for j in {1..3}; do
+              time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230$endpoint)
+              total=$(echo "$total + $time" | bc)
+            done
+            avg=$(echo "scale=3; $total / 3" | bc)
+            
+            echo "$name endpoint: ${avg}s (avg of 3 requests)"
+          done
+          
+          echo "=========================================="
+        continue-on-error: true
+      
+      - name: Show API Logs on Failure
         if: failure()
         run: |
-          echo "=== BucStop API Logs ==="
-          # Logs would be in the background process
-          # Add any log file paths here if they exist
-          cat "Bucstop WebApp/BucStop/logs/*.log" 2>/dev/null || echo "No log files found"
+          echo "=========================================="
+          echo "API Error Logs"
+          echo "=========================================="
+          
+          if [ -f api.log ]; then
+            echo "Last 100 lines of API logs:"
+            tail -n 100 api.log
+          else
+            echo "No API log file found"
+          fi
+          
+          echo ""
+          echo "=========================================="
+          echo "Process Information"
+          echo "=========================================="
+          ps aux | grep dotnet || echo "No dotnet processes found"
+          
+          echo ""
+          echo "Port 5230 status:"
+          netstat -tulpn 2>/dev/null | grep 5230 || echo "Nothing listening on port 5230"
       
-      # Stop API server
       - name: Stop API Server
         if: always()
         run: |
+          echo "Shutting down BucStop API..."
+          
           if [ -f api_pid.txt ]; then
-            echo "Stopping BucStop API..."
-            kill $(cat api_pid.txt) || true
+            PID=$(cat api_pid.txt)
+            echo "Stopping API (PID: $PID)..."
+            
+            # Try graceful shutdown first
+            kill $PID 2>/dev/null || true
             sleep 2
+            
             # Force kill if still running
-            kill -9 $(cat api_pid.txt) 2>/dev/null || true
+            if ps -p $PID > /dev/null 2>&1; then
+              echo "Forcing API shutdown..."
+              kill -9 $PID 2>/dev/null || true
+            fi
+            
+            echo "✅ API stopped"
+          else
+            echo "No PID file found, attempting to kill any dotnet processes..."
+            pkill -f "dotnet.*BucStop" || true
           fi
       
-      # Upload test results and logs
-      - name: Upload Test Results
+      - name: Upload API Logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: api-test-results
+          name: api-logs-${{ github.run_number }}
           path: |
+            api.log
             **/TestResults/**
             **/*.trx
             **/*.log
           if-no-files-found: ignore
+      
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "=========================================="
+          echo "BucStop API Test Summary"
+          echo "=========================================="
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "=========================================="
