@@ -5,25 +5,17 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BucStop", "BucStop\BucStop.csproj", "{1F30B091-BD9E-44E5-B075-3930E85838D6}"
 EndProject
-<<<<<<< Updated upstream
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BucStop.UiTests", "BucStop.UiTests\BucStop.UiTests.csproj", "{45524E4A-D5AC-4B01-91C5-7E255BFBE840}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BucStop.ApiTests", "BucStop.ApiTests\BucStop.ApiTests.csproj", "{2ED02B69-8ED3-461B-A504-6146247B2C60}"
-=======
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BucStop.UiTests", "BucStop.UiTests\BucStop.UiTests.csproj", "{45524E4A-D5AC-4B01-91C5-7E255BFBE840}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BucStop.ApiTests", "BucStop.ApiTests\BucStop.ApiTests.csproj", "{2ED02B69-8ED3-461B-A504-6146247B2C60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "..\Team-3-BucStop_APIGateway\APIGateway\APIGateway.csproj", "{475EF0B7-5FD2-DF1E-44F6-DB788B03D2D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "..\..\..\..\..\..\..\OneDrive - East Tennessee State University\Documents\GitHub\GGB_Buckstop\Team-3-BucStop_APIGateway\APIGateway\APIGateway.csproj", "{E0B5A00D-B4B8-4C48-9EB3-262B28F9D451}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BucKart", "..\Team-3-BucStop_BucKart\BucKart\BucKart.csproj", "{66B6A6D6-53E2-D60D-C87E-27096851A157}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BucKart", "..\..\..\..\..\..\..\OneDrive - East Tennessee State University\Documents\GitHub\GGB_Buckstop\Team-3-BucStop_BucKart\BucKart\BucKart.csproj", "{10960423-A8F3-4697-89F4-DAA5F5678D06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong", "..\Team-3-BucStop_Pong\Pong\Pong.csproj", "{544F6AED-B85B-00C3-3391-E421D82C6C1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "..\..\..\..\..\..\..\OneDrive - East Tennessee State University\Documents\GitHub\GGB_Buckstop\Team-3-BucStop_Pong\Pong\Pong.csproj", "{CA71D780-0FAD-4098-ACEC-CB9A1A3F9ECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "..\Team-3-BucStop_Snake\Snake\Snake.csproj", "{34DB56E6-7D75-8D2B-DB4D-1E5E8415CE6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake", "..\..\..\..\..\..\..\OneDrive - East Tennessee State University\Documents\GitHub\GGB_Buckstop\Team-3-BucStop_Snake\Snake\Snake.csproj", "{36CDB90C-1E7A-4D1D-ACA5-E2CAC5DC113F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris", "..\..\..\..\..\..\..\OneDrive - East Tennessee State University\Documents\GitHub\GGB_Buckstop\Team-3-BucStop_Tetris\Tetris\Tetris.csproj", "{D835FAC0-1684-4FAB-AA63-9C0506FE9E77}"
->>>>>>> Stashed changes
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris", "..\Team-3-BucStop_Tetris\Tetris\Tetris.csproj", "{EB6BD35D-4AB7-E050-0D08-66A526800E0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,37 +27,30 @@ Global
 		{1F30B091-BD9E-44E5-B075-3930E85838D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F30B091-BD9E-44E5-B075-3930E85838D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F30B091-BD9E-44E5-B075-3930E85838D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45524E4A-D5AC-4B01-91C5-7E255BFBE840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45524E4A-D5AC-4B01-91C5-7E255BFBE840}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45524E4A-D5AC-4B01-91C5-7E255BFBE840}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45524E4A-D5AC-4B01-91C5-7E255BFBE840}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2ED02B69-8ED3-461B-A504-6146247B2C60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2ED02B69-8ED3-461B-A504-6146247B2C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED02B69-8ED3-461B-A504-6146247B2C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED02B69-8ED3-461B-A504-6146247B2C60}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< Updated upstream
-=======
-		{E0B5A00D-B4B8-4C48-9EB3-262B28F9D451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0B5A00D-B4B8-4C48-9EB3-262B28F9D451}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0B5A00D-B4B8-4C48-9EB3-262B28F9D451}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0B5A00D-B4B8-4C48-9EB3-262B28F9D451}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10960423-A8F3-4697-89F4-DAA5F5678D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10960423-A8F3-4697-89F4-DAA5F5678D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10960423-A8F3-4697-89F4-DAA5F5678D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10960423-A8F3-4697-89F4-DAA5F5678D06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA71D780-0FAD-4098-ACEC-CB9A1A3F9ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA71D780-0FAD-4098-ACEC-CB9A1A3F9ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA71D780-0FAD-4098-ACEC-CB9A1A3F9ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA71D780-0FAD-4098-ACEC-CB9A1A3F9ECC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36CDB90C-1E7A-4D1D-ACA5-E2CAC5DC113F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36CDB90C-1E7A-4D1D-ACA5-E2CAC5DC113F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36CDB90C-1E7A-4D1D-ACA5-E2CAC5DC113F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36CDB90C-1E7A-4D1D-ACA5-E2CAC5DC113F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D835FAC0-1684-4FAB-AA63-9C0506FE9E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D835FAC0-1684-4FAB-AA63-9C0506FE9E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D835FAC0-1684-4FAB-AA63-9C0506FE9E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D835FAC0-1684-4FAB-AA63-9C0506FE9E77}.Release|Any CPU.Build.0 = Release|Any CPU
->>>>>>> Stashed changes
+		{475EF0B7-5FD2-DF1E-44F6-DB788B03D2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{475EF0B7-5FD2-DF1E-44F6-DB788B03D2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{475EF0B7-5FD2-DF1E-44F6-DB788B03D2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{475EF0B7-5FD2-DF1E-44F6-DB788B03D2D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66B6A6D6-53E2-D60D-C87E-27096851A157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66B6A6D6-53E2-D60D-C87E-27096851A157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66B6A6D6-53E2-D60D-C87E-27096851A157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66B6A6D6-53E2-D60D-C87E-27096851A157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{544F6AED-B85B-00C3-3391-E421D82C6C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544F6AED-B85B-00C3-3391-E421D82C6C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544F6AED-B85B-00C3-3391-E421D82C6C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544F6AED-B85B-00C3-3391-E421D82C6C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34DB56E6-7D75-8D2B-DB4D-1E5E8415CE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34DB56E6-7D75-8D2B-DB4D-1E5E8415CE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34DB56E6-7D75-8D2B-DB4D-1E5E8415CE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34DB56E6-7D75-8D2B-DB4D-1E5E8415CE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6BD35D-4AB7-E050-0D08-66A526800E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6BD35D-4AB7-E050-0D08-66A526800E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6BD35D-4AB7-E050-0D08-66A526800E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6BD35D-4AB7-E050-0D08-66A526800E0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
