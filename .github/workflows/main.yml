@@ -188,4 +188,4 @@ jobs:
           name: api-test-results
           path: |
             **/api.log
-          if-no-files-found: ign
+          if-no-files-found: ignore
