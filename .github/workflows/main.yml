@@ -26,6 +26,14 @@ jobs:
         with:
           node-version: '20'
       
+      - name: List Repository Structure
+        run: |
+          echo "Repository root contents:"
+          ls -la
+          echo ""
+          echo "Looking for BucStop project..."
+          find . -name "*.csproj" -type f 2>/dev/null || echo "No .csproj files found"
+      
       - name: Restore dependencies
         working-directory: 'Buckstop WebApp/BucStop'
         run: dotnet restore
