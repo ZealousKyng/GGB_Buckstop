@@ -29,13 +29,10 @@ jobs:
         run: |
           echo "Looking for BucStop project..."
           
-          # Find BucStop.csproj
           BUCKSTOP_CSPROJ=$(find . -name "BucStop.csproj" | head -1)
           
           if [ -z "$BUCKSTOP_CSPROJ" ]; then
             echo "ERROR: BucStop.csproj not found!"
-            echo "Available .csproj files:"
-            find . -name "*.csproj"
             exit 1
           fi
           
@@ -61,21 +58,16 @@ jobs:
           
           BUCKSTOP_DIR="${{ steps.find_project.outputs.buckstop_dir }}"
           
-          # Find the BucStop.dll file
           DLL_PATH=$(find "$BUCKSTOP_DIR" -name "BucStop.dll" -path "*/bin/Release/*" | head -1)
           
           if [ -z "$DLL_PATH" ]; then
             echo "ERROR: BucStop.dll not found!"
-            echo "Checking build output:"
-            find "$BUCKSTOP_DIR/bin" -type f -name "*.dll" 2>/dev/null || echo "No DLL files found"
-            ls -la "$BUCKSTOP_DIR/bin/Release/" 2>/dev/null || echo "Release directory not found"
             exit 1
           fi
           
           echo "Found DLL at: $DLL_PATH"
           DLL_DIR=$(dirname "$DLL_PATH")
           
-          # Start the API
           cd "$DLL_DIR"
           nohup dotnet BucStop.dll --urls "http://0.0.0.0:5230" > api.log 2>&1 &
           API_PID=$!
@@ -83,7 +75,6 @@ jobs:
           echo "Started API with PID: $API_PID"
           cd "$GITHUB_WORKSPACE"
           
-          # Wait for API to be ready
           echo "Waiting for BucStop API to start..."
           MAX_ATTEMPTS=30
           ATTEMPT=0
@@ -102,7 +93,6 @@ jobs:
           
           if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
             echo "ERROR: API failed to start within timeout"
-            echo "=== API Logs ==="
             cat "$DLL_DIR/api.log" 2>/dev/null || echo "No log file found"
             exit 1
           fi
@@ -117,7 +107,7 @@ jobs:
           
           ALL_PASSED=true
           
-          # Test Home endpoint
+          # Test Home endpoint (public, no auth required)
           echo ""
           echo "Testing Home (/)..."
           response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/)
@@ -129,22 +119,34 @@ jobs:
             ALL_PASSED=false
           fi
           
-          # Test Games endpoint
+          # Test Games endpoint (accept 302 redirect - requires authentication)
           echo ""
-          echo "Testing Games (/Games)..."
+          echo "Testing Games (/Games) - expecting redirect..."
           response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/Games)
           time=$(curl -o /dev/null -s -w '%{time_total}' http://localhost:5230/Games)
-          if [ "$response" -eq 200 ]; then
+          
+          # Accept both 200 (if logged in) and 302 (redirect to login)
+          if [ "$response" -eq 200 ] || [ "$response" -eq 302 ]; then
             echo "   Status: $response | Response time: ${time}s"
           else
-            echo "   Status: $response | Response time: ${time}s"
+            echo "   Status: $response | Response time: ${time}s (unexpected status)"
             ALL_PASSED=false
+          fi
+          
+          # Test Swagger endpoint (if available)
+          echo ""
+          echo "Testing Swagger endpoint..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5230/swagger/v1/swagger.json)
+          if [ "$response" -eq 200 ]; then
+            echo "   Status: $response - Swagger available"
+          else
+            echo "   Status: $response - Swagger not available (optional)"
           fi
           
           echo ""
           echo "=========================================="
           if [ "$ALL_PASSED" = "true" ]; then
-            echo "All critical endpoints passed!"
+            echo "All API tests passed!"
           else
             echo "Some endpoints failed"
             exit 1
@@ -158,13 +160,10 @@ jobs:
           
           if [ -f api_pid.txt ]; then
             PID=$(cat api_pid.txt)
-            echo "Stopping API (PID: $PID)..."
-            
             kill "$PID" 2>/dev/null || true
             sleep 2
             
             if ps -p "$PID" > /dev/null 2>&1; then
-              echo "Forcing API shutdown..."
               kill -9 "$PID" 2>/dev/null || true
             fi
             
@@ -174,18 +173,12 @@ jobs:
       - name: Show API Logs on Failure
         if: failure()
         run: |
-          echo "=========================================="
-          echo "API Error Logs"
-          echo "=========================================="
-          
           BUCKSTOP_DIR="${{ steps.find_project.outputs.buckstop_dir }}"
           DLL_DIR=$(find "$BUCKSTOP_DIR" -name "BucStop.dll" -path "*/bin/Release/*" -exec dirname {} \; | head -1)
           
           if [ -n "$DLL_DIR" ] && [ -f "$DLL_DIR/api.log" ]; then
             echo "API logs:"
             cat "$DLL_DIR/api.log"
-          else
-            echo "No API log file found"
           fi
       
       - name: Upload Test Results
