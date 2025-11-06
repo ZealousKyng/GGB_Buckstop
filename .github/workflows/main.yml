@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Check if branch is recently active
-      id: check_activity
-      run: |
+      - name: Check if branch is recently active
+        id: check_activity
+        run: |
           # Get the last commit date for this branch
           LAST_COMMIT_DATE=$(git log -1 --format=%ci)
           LAST_COMMIT_UNIX=$(date -d "$LAST_COMMIT_DATE" +%s)
