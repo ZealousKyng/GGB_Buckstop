@@ -23,7 +23,7 @@ jobs:
       - name: Validate OpenAPI definition
         uses: mbowman100/swagger-validator-action@master
         with:
-          files: 'Bucstop\ WebApp/BucStop/openapi.json'
+          files: "Bucstop WebApp/BucStop/openapi.json"
 
         
 
