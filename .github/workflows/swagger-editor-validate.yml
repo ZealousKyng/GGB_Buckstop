@@ -1,0 +1,23 @@
+name: Swagger Editor Validate
+
+on:
+  push:
+    paths:
+      - '**/*.yaml'
+      - '**/*.yml'
+  pull_request:
+    paths:
+      - '**/*.yaml'
+      - '**/*.yml'
+
+jobs:
+  swagger-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Swagger Editor Validate
+        uses: char0n/swagger-editor-validate@v1
+        with:
+          swagger_file: 
