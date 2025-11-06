@@ -16,36 +16,18 @@ jobs:
   swagger-validation:
     runs-on: ubuntu-latest
     
-    services:
-      swagger-editor:
-        image: swaggerapi/swagger-editor
-        ports:
-          - 8080:8080
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Install Chrome dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libnss3 \
-            libatk1.0-0 \
-            libatk-bridge2.0-0 \
-            libcups2 \
-            libdrm2 \
-            libxkbcommon0 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxfixes3 \
-            libxrandr2 \
-            libgbm1 \
-            libasound2t64 \
-            libxshmfence1
-      
-      - name: Swagger Editor Validate
-        uses: char0n/swagger-editor-validate@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          swagger-editor-url: http://localhost:8080/
-          definition-file: 'openapi.json'
+          node-version: '20'
+      
+      - name: Install Swagger CLI
+        run: npm install -g @apidevtools/swagger-cli
+      
+      - name: Validate OpenAPI Definition
+        run: swagger-cli validate 'openapi.json'
+          
