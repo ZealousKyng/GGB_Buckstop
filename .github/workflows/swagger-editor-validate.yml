@@ -16,19 +16,14 @@ jobs:
   swagger-validation:
     runs-on: ubuntu-latest
     
-    services:
-      swagger-editor:
-        image: swaggerapi/swagger-editor
-        ports:
-          - 8080:8080
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Swagger Editor Validate
-        uses: char0n/swagger-editor-validate@v1
+      - name: Validate OpenAPI definition
+        uses: mbowman100/swagger-validator-action@master
         with:
-          swagger-editor-url: http://localhost:8080/
-          definition-file: 'Bucstop\ WebApp/BucStop/openapi.json'
+          files: 'Bucstop\ WebApp/BucStop/openapi.json'
+
+        
 
