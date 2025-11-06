@@ -20,10 +20,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate OpenAPI definition
-        uses: mbowman100/swagger-validator-action@master
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          files: "Bucstop WebApp/BucStop/openapi.json"
+          node-version: '20'
 
-        
+      - name: Install swagger-cli
+        run: npm install -g @apidevtools/swagger-cli
+
+      - name: Validate OpenAPI definition
+        run: swagger-cli validate 'Buckstop WebApp/BucStop/openapi.json'
 
