@@ -80,7 +80,20 @@ namespace Gateway
                     {
                         foreach (var game in gameInfoList)
                         {
+                            // Set the Content URL for the game
                             game.Content = publicJsUrl;
+
+                            // Null check for required fields and set the Status accordingly
+                            if (string.IsNullOrEmpty(game.Description) ||
+                             string.IsNullOrEmpty(game.HowTo) ||
+                              string.IsNullOrEmpty(game.Content))
+                              {
+                                game.Status = "under_construction"; // Mark the game as under construction if fields are missing
+                              }
+                              else
+                              {
+                                game.Status = "complete"; // Mark the game as complete if all required fields are present
+                              }
                         }
 
                         lock (_gameInfos)
