@@ -9,7 +9,7 @@ namespace BucStop.UiTests
     public class LoginPageSpec : IAsyncLifetime
     {
         // Change this if your local port/URL differs when BucStop runs
-        private const string LoginUrl = "http://localhost:8080/Account/Login";
+        private const string LoginUrl = "http://localhost:7182/Account/Login";
 
         private IPlaywright _playwright = default!;
         private IBrowser _browser = default!;

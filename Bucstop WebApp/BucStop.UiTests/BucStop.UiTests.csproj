@@ -10,13 +10,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- Core test infrastructure -->
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+
+		<!-- Playwright for browser-based UI tests -->
 		<PackageReference Include="Microsoft.Playwright" Version="1.55.0" />
+
+		<!-- xUnit -->
 		<PackageReference Include="xunit" Version="2.4.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
+
+		<!-- NUnit -->
+		<PackageReference Include="NUnit" Version="3.14.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+
+		<!-- Code coverage -->
 		<PackageReference Include="coverlet.collector" Version="6.0.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
