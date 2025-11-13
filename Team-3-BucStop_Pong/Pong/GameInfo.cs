@@ -10,5 +10,6 @@ namespace Pong
         public string DateAdded { get; set; }
         public string HowTo { get; set; }
         public string Thumbnail { get; set; }
+        public string Status { get; set; }
     }
 }
