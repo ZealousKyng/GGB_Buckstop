@@ -40,8 +40,9 @@ The script will modify these files:
 2. `Team-3-BucStop_Snake/Snake/appsettings.containers.json`
 3. `Team-3-BucStop_Pong/Pong/appsettings.containers.json`
 4. `Team-3-BucStop_Tetris/Tetris/appsettings.containers.json`
-5. `Team-3-BucStop_APIGateway/APIGateway/appsettings.containers.json`
-6. `Bucstop WebApp/BucStop/appsettings.containers.json` (if applicable)
+5. `Team-3-BucStop_BucKart/BucKart/appsettings.containers.json`
+6. `Team-3-BucStop_APIGateway/APIGateway/appsettings.containers.json`
+7. `Bucstop WebApp/BucStop/appsettings.containers.json` (if applicable)
 
 ## Port Mappings
 
@@ -52,6 +53,7 @@ After running the script, your services will be accessible at:
 - Snake Game: `http://YOUR_IP:8082`
 - Pong Game: `http://YOUR_IP:8083`
 - Tetris Game: `http://YOUR_IP:8084`
+- BucKart Game: `http://YOUR_IP:8085`
 
 ## After Running the Script
 
