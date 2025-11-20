@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jacks\\source\\repos\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj": {}
+    "C:\\Users\\jacol\\OneDrive\\Documents\\GitHub\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jacks\\source\\repos\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj": {
+    "C:\\Users\\jacol\\OneDrive\\Documents\\GitHub\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jacks\\source\\repos\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj",
+        "projectUniqueName": "C:\\Users\\jacol\\OneDrive\\Documents\\GitHub\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj",
         "projectName": "BucStopWebApp",
-        "projectPath": "C:\\Users\\jacks\\source\\repos\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj",
-        "packagesPath": "C:\\Users\\jacks\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jacks\\source\\repos\\GGB_Buckstop\\gameSubmission\\obj\\",
+        "projectPath": "C:\\Users\\jacol\\OneDrive\\Documents\\GitHub\\GGB_Buckstop\\gameSubmission\\BucStopWebApp.csproj",
+        "packagesPath": "C:\\Users\\jacol\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jacol\\OneDrive\\Documents\\GitHub\\GGB_Buckstop\\gameSubmission\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jacks\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jacol\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -68,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
