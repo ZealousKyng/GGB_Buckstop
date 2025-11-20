@@ -3,15 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Name Submission Form</title>
+    <title>Game Submission Form - BucStop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .file-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .preview-image {
+            margin-top: 10px;
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <form action="/submit-form" method="post">
-            <label for="New Game Name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter Your New Game's Name">
+    <div class="container">
+        <h1>🎮 Submit Your Game</h1>
+        
+        <form id="gameSubmitForm">
+            <div class="form-group">
+                <label for="gameName">Game Name *</label>
+                <input type="text" id="gameName" name="gameName" required placeholder="Enter your game name" maxlength="64">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description *</label>
+                <textarea id="description" name="description" required placeholder="Describe your game..." maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="gameImage">Game Image *</label>
+                <input type="file" id="gameImage" name="gameImage" accept="image/*" required>
+                <div class="file-info" id="imageInfo"></div>
+                <img id="imagePreview" class="preview-image" alt="Image preview">
+            </div>
+
+            <div class="form-group">
+                <label for="gameCode">Game Code File *</label>
+                <input type="file" id="gameCode" name="gameCode" required>
+                <div class="file-info" id="codeInfo"></div>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Game</button>
         </form>
-        <button type="submit">Submit</button>
-    </div>   
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('gameSubmitForm');
+        const imageInput = document.getElementById('gameImage');
+        const codeInput = document.getElementById('gameCode');
+        const imageInfo = document.getElementById('imageInfo');
+        const codeInfo = document.getElementById('codeInfo');
+        const imagePreview = document.getElementById('imagePreview');
+        const messageDiv = document.getElementById('message');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Show selected image with preview
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                imageInfo.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    imagePreview.src = event.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imageInfo.textContent = '';
+                imagePreview.style.display = 'none';
+            }
+        });
+
+        // Show selected code file
+        codeInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                codeInfo.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            } else {
+                codeInfo.textContent = '';
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = new FormData();
+            const gameName = document.getElementById('gameName').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const imageFile = imageInput.files[0];
+            const codeFile = codeInput.files[0];
+
+            // Validation
+            if (!gameName || gameName.length > 64) {
+                showMessage('Game name is required and must be 64 characters or less', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Game';
+                return;
+            }
+
+            if (!description || description.length > 1000) {
+                showMessage('Description is required and must be 1000 characters or less', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Game';
+                return;
+            }
+
+            if (!imageFile) {
+                showMessage('Please select a game image', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Game';
+                return;
+            }
+
+            if (!codeFile) {
+                showMessage('Please select a game code file', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Game';
+                return;
+            }
+
+            formData.append('gameName', gameName);
+            formData.append('description', description);
+            formData.append('image', imageFile);
+            formData.append('code', codeFile);
+
+            try {
+                // Connect to SubmissionGateway API
+                // Default to localhost:8086, but can be configured via environment variable
+                const apiUrl = window.SUBMISSION_GATEWAY_URL || 'http://localhost:8086';
+                const response = await fetch(`${apiUrl}/api/submissions`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage(`Success! Game submitted with ID: ${data.id}`, 'success');
+                    form.reset();
+                    imageInfo.textContent = '';
+                    codeInfo.textContent = '';
+                    imagePreview.style.display = 'none';
+                } else {
+                    showMessage(`Error: ${data.error || 'Failed to submit game'}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`Error: ${error.message}`, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Game';
+            }
+        });
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    </script>
 </body>
 </html>

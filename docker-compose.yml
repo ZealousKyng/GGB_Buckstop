@@ -82,6 +82,24 @@ services:
       networks:
         - bucstop-network
 
+  submission-gateway:
+    build:
+      context: ./Team-3-BucStop_SubmissionGateway/SubmissionGateway
+      dockerfile: Dockerfile
+    container_name: submission-gateway
+    environment:
+      - DOTNET_ENVIRONMENT=${env:-containersLocal}
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "8086:80" # Expose Submission Gateway on localhost:8086
+    networks:
+      - bucstop-network
+    volumes:
+      # Store submissions data locally in the project folder
+      - ./Team-3-BucStop_SubmissionGateway/SubmissionGateway/Data:/app/Data
+      # Store uploaded files locally in the project folder
+      - ./Team-3-BucStop_SubmissionGateway/SubmissionGateway/Uploads:/app/Uploads
+
 networks:
   bucstop-network:
     driver: bridge

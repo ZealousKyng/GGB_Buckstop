@@ -16,6 +16,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add CORS to allow cross-origin requests from the web form
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Register a submission store for simple persistence
 builder.Services.AddSingleton<ISubmissionStore>(sp =>
 {
@@ -24,6 +35,16 @@ builder.Services.AddSingleton<ISubmissionStore>(sp =>
     Directory.CreateDirectory(dataDir);
     var filePath = Path.Combine(dataDir, "submissions.jsonl");
     return new FileSubmissionStore(filePath);
+});
+
+// Create uploads directory for storing game images and code files
+// Files are stored locally in the Team-3-BucStop_SubmissionGateway/SubmissionGateway/Uploads folder
+builder.Services.AddSingleton<string>(sp =>
+{
+    var env = sp.GetRequiredService<IHostEnvironment>();
+    var uploadsDir = Path.Combine(env.ContentRootPath, "Uploads");
+    Directory.CreateDirectory(uploadsDir);
+    return uploadsDir;
 });
 
 // Adds a simple fixed-window rate limiter to protect the API from burst (used in most designs for AspNetCore)
@@ -43,6 +64,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseCors();
+
 app.UseRateLimiter();
 
 app.MapControllers();
@@ -60,23 +83,16 @@ public partial class Program
     }
 }
 
-// Represents a persisted game submission with score metadata
+// Represents a persisted game submission
 public sealed class Submission
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Game { get; set; } = string.Empty;
-    public string UserId { get; set; } = string.Empty;
-    public int Score { get; set; }
+    public string GameName { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string ImagePath { get; set; } = string.Empty;
+    public string CodeFilePath { get; set; } = string.Empty;
     public DateTime CreatedEst { get; set; } = Program.CurrentEasternTime();
     public DateTime UpdatedEst { get; set; } = Program.CurrentEasternTime();
-}
-
-// Request DTO for creating a new submission
-public sealed class CreateSubmissionRequest
-{
-    public string Game { get; set; } = string.Empty;
-    public string UserId { get; set; } = string.Empty;
-    public int Score { get; set; }
 }
 
 // Request DTO for updating an existing submission's score
@@ -87,10 +103,10 @@ public sealed class UpdateSubmissionRequest
 
 public interface ISubmissionStore
 {
-    Submission Create(string game, string userId, int score);
+    Submission Create(string gameName, string description, string imagePath, string codeFilePath);
     Submission? Get(Guid id);
-    IReadOnlyList<Submission> List(string? game, string? userId, int take);
-    Submission? Update(Guid id, int score);
+    IReadOnlyList<Submission> List(string? gameName, int take);
+    Submission? Update(Guid id, string gameName, string description);
 }
 
 public sealed class FileSubmissionStore : ISubmissionStore
@@ -118,15 +134,16 @@ public sealed class FileSubmissionStore : ISubmissionStore
         }
     }
 
-    public Submission Create(string game, string userId, int score)
+    public Submission Create(string gameName, string description, string imagePath, string codeFilePath)
     {
         var easternNow = Program.CurrentEasternTime();
         var entity = new Submission
         {
             Id = Guid.NewGuid(),
-            Game = game,
-            UserId = userId,
-            Score = score,
+            GameName = gameName,
+            Description = description,
+            ImagePath = imagePath,
+            CodeFilePath = codeFilePath,
             CreatedEst = easternNow,
             UpdatedEst = easternNow
         };
@@ -146,29 +163,28 @@ public sealed class FileSubmissionStore : ISubmissionStore
         }
     }
 
-    public IReadOnlyList<Submission> List(string? game, string? userId, int take)
+    public IReadOnlyList<Submission> List(string? gameName, int take)
     {
         IEnumerable<Submission> q;
         lock (_lock)
         {
             q = _submissions.ToList();
         }
-        if (!string.IsNullOrWhiteSpace(game)) q = q.Where(s => s.Game == game);
-        if (!string.IsNullOrWhiteSpace(userId)) q = q.Where(s => s.UserId == userId);
+        if (!string.IsNullOrWhiteSpace(gameName)) q = q.Where(s => s.GameName == gameName);
         return q
-            .OrderByDescending(s => s.Score)
-            .ThenByDescending(s => s.UpdatedEst)
+            .OrderByDescending(s => s.CreatedEst)
             .Take(Math.Clamp(take, 1, 500))
             .ToList();
     }
 
-    public Submission? Update(Guid id, int score)
+    public Submission? Update(Guid id, string gameName, string description)
     {
         lock (_lock)
         {
             var entity = _submissions.FirstOrDefault(s => s.Id == id);
             if (entity == null) return null;
-            entity.Score = score;
+            entity.GameName = gameName;
+            entity.Description = description;
             entity.UpdatedEst = Program.CurrentEasternTime();
             RewriteFile();
             return entity;

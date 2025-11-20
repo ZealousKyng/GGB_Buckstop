@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BucStopWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7b14f18722eb0617bc5942ba47b9c25f934f080")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01102d54bc1add2a6d8b9a80df4b24a04408b77b")]
 [assembly: System.Reflection.AssemblyProductAttribute("BucStopWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BucStopWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
