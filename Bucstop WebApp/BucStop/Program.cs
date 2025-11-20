@@ -50,6 +50,9 @@ builder.Services.AddHttpClient<MicroClient>(client =>
     client.BaseAddress = baseAddress;
 });
 
+// Add HttpClientFactory for SubmissionGateway
+builder.Services.AddHttpClient();
+
 builder.Services.AddAuthentication("CustomAuthenticationScheme").AddCookie("CustomAuthenticationScheme", options =>
 {
     options.LoginPath = "/Account/Login";

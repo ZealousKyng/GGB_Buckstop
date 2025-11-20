@@ -1,95 +1,104 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 
 namespace BucStopWebApp.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-
-
 public class GameSubmissionController : Controller
 {
-    private readonly string _gamesPath = "/app/games";
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IConfiguration _configuration;
+    private readonly ILogger<GameSubmissionController> _logger;
+
     public IActionResult Index()
     {
         return View();
     }
-    public GameSubmissionController()
+
+    public GameSubmissionController(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger<GameSubmissionController> logger)
     {
-        Directory.CreateDirectory(_gamesPath);
+        _httpClientFactory = httpClientFactory;
+        _configuration = configuration;
+        _logger = logger;
     }
 
-    [HttpPost("submit")]
+    [HttpPost("api/GameSubmission/submit")]
     public async Task<IActionResult> SubmitGame([FromForm] GameSubmissionRequest request)
     {
         try
         {
+            // Validate required fields
             if (string.IsNullOrWhiteSpace(request.GameName))
             {
                 return BadRequest(new { error = "Game name is required" });
             }
 
-            var safeName = string.Join("_", request.GameName.Split(Path.GetInvalidFileNameChars()));
-            var gameFolderPath = Path.Combine(_gamesPath, safeName);
-            Directory.CreateDirectory(gameFolderPath);
-
-            var uploadedFiles = new List<string>();
-
-            if (request.Files != null && request.Files.Any())
+            if (string.IsNullOrWhiteSpace(request.Description))
             {
-                foreach (var file in request.Files)
-                {
-                    if (file.Length > 0)
-                    {
-                        var fileName = Path.GetFileName(file.FileName);
-                        var filePath = Path.Combine(gameFolderPath, fileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
-                        uploadedFiles.Add(fileName);
-                    }
-                }
+                return BadRequest(new { error = "Description is required" });
             }
 
-            return Ok(new
+            if (request.ImageFile == null || request.ImageFile.Length == 0)
             {
-                message = $"Game submitted successfully: {request.GameName}",
-                folder = safeName,
-                files = uploadedFiles,
-                path = gameFolderPath
-            });
+                return BadRequest(new { error = "Game image is required" });
+            }
+
+            if (request.CodeFile == null || request.CodeFile.Length == 0)
+            {
+                return BadRequest(new { error = "Game code file is required" });
+            }
+
+            // Get SubmissionGateway URL from configuration
+            var submissionGatewayUrl = _configuration["SubmissionGateway"] ?? "http://submission-gateway";
+            if (string.IsNullOrEmpty(submissionGatewayUrl))
+            {
+                _logger.LogError("SubmissionGateway URL not configured");
+                return StatusCode(500, new { error = "SubmissionGateway URL not configured" });
+            }
+
+            // Create multipart form data to forward to SubmissionGateway
+            using var httpClient = _httpClientFactory.CreateClient();
+            using var multipartContent = new MultipartFormDataContent();
+            
+            multipartContent.Add(new StringContent(request.GameName.Trim()), "gameName");
+            multipartContent.Add(new StringContent(request.Description.Trim()), "description");
+            
+            var imageStream = request.ImageFile.OpenReadStream();
+            var imageContent = new StreamContent(imageStream);
+            imageContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(request.ImageFile.ContentType);
+            multipartContent.Add(imageContent, "image", request.ImageFile.FileName);
+            
+            var codeStream = request.CodeFile.OpenReadStream();
+            var codeContent = new StreamContent(codeStream);
+            codeContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(request.CodeFile.ContentType);
+            multipartContent.Add(codeContent, "code", request.CodeFile.FileName);
+
+            // Forward request to SubmissionGateway
+            var response = await httpClient.PostAsync($"{submissionGatewayUrl}/api/submissions", multipartContent);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var submissionData = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(responseContent);
+                _logger.LogInformation("Game submission successful: {GameName}, ID: {Id}", request.GameName, submissionData.GetProperty("id").GetString());
+                
+                return Ok(new
+                {
+                    id = submissionData.GetProperty("id").GetString(),
+                    gameName = submissionData.GetProperty("gameName").GetString(),
+                    message = $"Game submitted successfully: {request.GameName}"
+                });
+            }
+            else
+            {
+                _logger.LogError("SubmissionGateway returned error: {StatusCode} - {Content}", response.StatusCode, responseContent);
+                var errorData = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(responseContent);
+                var errorMessage = errorData.TryGetProperty("error", out var error) ? error.GetString() : "Failed to submit game";
+                return StatusCode((int)response.StatusCode, new { error = errorMessage });
+            }
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { error = ex.Message });
-        }
-    }
-
-    [HttpGet("list")]
-    public IActionResult ListGames()
-    {
-        try
-        {
-            var games = new List<object>();
-            if (Directory.Exists(_gamesPath))
-            {
-                var directories = Directory.GetDirectories(_gamesPath);
-                foreach (var dir in directories)
-                {
-                    var dirInfo = new DirectoryInfo(dir);
-                    var files = dirInfo.GetFiles();
-                    games.Add(new
-                    {
-                        name = dirInfo.Name,
-                        fileCount = files.Length,
-                        files = files.Select(f => f.Name).ToList()
-                    });
-                }
-            }
-            return Ok(new { games });
-        }
-        catch (Exception ex)
-        {
+            _logger.LogError(ex, "Error submitting game: {Message}", ex.Message);
             return StatusCode(500, new { error = ex.Message });
         }
     }
@@ -98,5 +107,11 @@ public class GameSubmissionController : Controller
 public class GameSubmissionRequest
 {
     public string GameName { get; set; } = string.Empty;
-    public List<IFormFile>? Files { get; set; }
+    public string Description { get; set; } = string.Empty;
+    
+    [FromForm(Name = "image")]
+    public IFormFile? ImageFile { get; set; }
+    
+    [FromForm(Name = "code")]
+    public IFormFile? CodeFile { get; set; }
 }
