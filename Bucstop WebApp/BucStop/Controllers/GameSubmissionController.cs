@@ -4,10 +4,15 @@ namespace BucStopWebApp.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class GameSubmissionController : ControllerBase
+
+
+public class GameSubmissionController : Controller
 {
     private readonly string _gamesPath = "/app/games";
-
+    public IActionResult Index()
+    {
+        return View();
+    }
     public GameSubmissionController()
     {
         Directory.CreateDirectory(_gamesPath);
