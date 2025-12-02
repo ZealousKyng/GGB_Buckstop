@@ -114,6 +114,15 @@
         </div>
 
         <div class="form-group">
+            <label for="instructions">Game Instructions *</label>
+            <textarea id="instructions"
+                      name="instructions"
+                      required
+                      placeholder="Explain how to play: controls, objectives, rules, scoring, etc."
+                      maxlength="1500"></textarea>
+        </div>
+
+        <div class="form-group">
             <label for="gameImage">Game Image Submission *</label>
             <input type="file" id="gameImage" name="gameImage" accept="image/*" required>
             <div class="file-info" id="imageInfo"></div>
@@ -125,6 +134,8 @@
             <input type="file" id="gameCode" name="gameCode" required>
             <div class="file-info" id="codeInfo"></div>
         </div>
+
+
 
         <button type="submit" id="submitBtn">Submit Game</button>
     </form>
@@ -182,6 +193,7 @@
             const formData = new FormData();
             const gameName = document.getElementById('gameName').value.trim();
             const description = document.getElementById('description').value.trim();
+            const instructions = document.getElementById('instructions').value.trim();
             const imageFile = imageInput.files[0];
             const codeFile = codeInput.files[0];
 
@@ -195,6 +207,13 @@
 
             if (!description || description.length > 1000) {
                 showMessage('Description is required and must be 1000 characters or less', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Game';
+                return;
+            }
+
+            if (!instructions || instructions.length > 1500) {
+                showMessage('Instructions are required and must be 1500 characters or less', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Game';
                 return;
@@ -216,6 +235,7 @@
 
             formData.append('gameName', gameName);
             formData.append('description', description);
+            formData.append('instructions', instructions);
             formData.append('image', imageFile);
             formData.append('code', codeFile);
 
