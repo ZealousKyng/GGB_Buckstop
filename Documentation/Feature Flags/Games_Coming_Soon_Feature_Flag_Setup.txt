@@ -1,0 +1,429 @@
+Game Coming Soon Feature Flag - API Gateway Integration Guide
+═══════════════════════════════════════════════════════════════════
+
+QUICK START - Add to Existing team-3-bucstop_api Gateway
+
+This guide shows how to integrate the Game Coming Soon feature flag into your existing API Gateway.
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 1: Install NuGet Package
+───────────────────────────────────────────────────────────────────
+
+Run in your API Gateway project directory:
+
+dotnet add package Microsoft.FeatureManagement.AspNetCore
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 2: Update appsettings.json
+───────────────────────────────────────────────────────────────────
+
+Replace your current appsettings.json with the updated version (provided separately).
+
+Key additions:
+- "FeatureManagement" section with master flag
+- "ComingSoonGames" array with game configurations
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 3: Update Program.cs
+───────────────────────────────────────────────────────────────────
+
+Add these using statements at the top:
+
+using Microsoft.FeatureManagement;
+
+Then add these lines in your service configuration (before var app = builder.Build();):
+
+// Add Feature Management
+builder.Services.AddFeatureManagement();
+
+// Bind Coming Soon Games Configuration
+builder.Services.Configure<ComingSoonGamesConfiguration>(
+    builder.Configuration);
+
+EXAMPLE - Complete Program.cs structure:
+
+using Microsoft.FeatureManagement;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Add Feature Management
+builder.Services.AddFeatureManagement();
+
+// Bind Coming Soon Games Configuration
+builder.Services.Configure<ComingSoonGamesConfiguration>(
+    builder.Configuration);
+
+// Configure CORS if needed
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
+
+// Add these classes at the bottom of Program.cs
+public class ComingSoonGame
+{
+    public string Id { get; set; }
+    public string Title { get; set; }
+    public string ImageUrl { get; set; }
+    public bool IsEnabled { get; set; }
+    public DateTime? ReleaseDate { get; set; }
+    public int DisplayOrder { get; set; }
+}
+
+public class ComingSoonGamesConfiguration
+{
+    public List<ComingSoonGame> ComingSoonGames { get; set; } 
+        = new List<ComingSoonGame>();
+}
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 4: Create ComingSoonGames Controller
+───────────────────────────────────────────────────────────────────
+
+Create: Controllers/ComingSoonGamesController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
+
+namespace BucStopGateway.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ComingSoonGamesController : ControllerBase
+    {
+        private readonly IFeatureManager _featureManager;
+        private readonly ComingSoonGamesConfiguration _gamesConfig;
+        private readonly ILogger<ComingSoonGamesController> _logger;
+
+        public ComingSoonGamesController(
+            IFeatureManager featureManager,
+            IOptions<ComingSoonGamesConfiguration> gamesConfig,
+            ILogger<ComingSoonGamesController> logger)
+        {
+            _featureManager = featureManager;
+            _gamesConfig = gamesConfig.Value;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// Get all enabled coming soon games
+        /// </summary>
+        /// <returns>List of coming soon games if feature is enabled</returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetComingSoonGames()
+        {
+            try
+            {
+                // Check master feature flag
+                bool featureEnabled = await _featureManager
+                    .IsEnabledAsync("GameComingSoon");
+                
+                if (!featureEnabled)
+                {
+                    _logger.LogInformation("GameComingSoon feature is disabled");
+                    return Ok(new { 
+                        enabled = false, 
+                        games = new List<ComingSoonGame>() 
+                    });
+                }
+
+                // Filter to only enabled games and sort by display order
+                var enabledGames = _gamesConfig.ComingSoonGames
+                    .Where(g => g.IsEnabled)
+                    .OrderBy(g => g.DisplayOrder)
+                    .ToList();
+
+                _logger.LogInformation(
+                    "Returning {Count} coming soon games", 
+                    enabledGames.Count);
+
+                return Ok(new { 
+                    enabled = true, 
+                    games = enabledGames 
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, 
+                    "Error retrieving coming soon games");
+                return StatusCode(500, new { 
+                    error = "Failed to retrieve coming soon games" 
+                });
+            }
+        }
+
+        /// <summary>
+        /// Get a specific coming soon game by ID
+        /// </summary>
+        /// <param name="id">Game ID</param>
+        /// <returns>Coming soon game details</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetGameById(string id)
+        {
+            try
+            {
+                bool featureEnabled = await _featureManager
+                    .IsEnabledAsync("GameComingSoon");
+                
+                if (!featureEnabled)
+                {
+                    return NotFound(new { error = "Feature disabled" });
+                }
+
+                var game = _gamesConfig.ComingSoonGames
+                    .FirstOrDefault(g => g.Id == id && g.IsEnabled);
+
+                if (game == null)
+                {
+                    _logger.LogWarning(
+                        "Coming soon game not found: {GameId}", id);
+                    return NotFound(new { error = "Game not found" });
+                }
+
+                return Ok(game);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, 
+                    "Error retrieving game {GameId}", id);
+                return StatusCode(500, new { 
+                    error = "Failed to retrieve game" 
+                });
+            }
+        }
+    }
+}
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 5: Test the API Endpoints
+───────────────────────────────────────────────────────────────────
+
+Start your API Gateway and test:
+
+1. Get all coming soon games:
+   GET https://localhost:[YOUR_PORT]/api/comingsoon
+
+   Expected Response:
+   {
+     "enabled": true,
+     "games": [
+       {
+         "id": "game-001",
+         "title": "Mystery Adventure",
+         "imageUrl": "/images/coming-soon/mystery-adventure.jpg",
+         "isEnabled": true,
+         "releaseDate": "2025-12-15T00:00:00",
+         "displayOrder": 1
+       },
+       {
+         "id": "game-002",
+         "title": "Space Explorer",
+         "imageUrl": "/images/coming-soon/space-explorer.jpg",
+         "isEnabled": true,
+         "releaseDate": "2025-11-20T00:00:00",
+         "displayOrder": 2
+       }
+     ]
+   }
+
+2. Get specific game:
+   GET https://localhost:[YOUR_PORT]/api/comingsoon/game-001
+
+   Expected Response:
+   {
+     "id": "game-001",
+     "title": "Mystery Adventure",
+     "imageUrl": "/images/coming-soon/mystery-adventure.jpg",
+     "isEnabled": true,
+     "releaseDate": "2025-12-15T00:00:00",
+     "displayOrder": 1
+   }
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 6: Configure Environment Variables (Optional)
+───────────────────────────────────────────────────────────────────
+
+For Docker or different environments, you can override settings:
+
+# Enable/disable master flag
+FeatureManagement__GameComingSoon=true
+
+# Enable/disable specific games
+ComingSoonGames__0__IsEnabled=true
+ComingSoonGames__1__IsEnabled=false
+
+# Update game details
+ComingSoonGames__0__Title="New Game Title"
+ComingSoonGames__0__ImageUrl="/images/new-game.jpg"
+
+═══════════════════════════════════════════════════════════════════
+
+STEP 7: Add CORS Configuration (If Needed)
+───────────────────────────────────────────────────────────────────
+
+If your frontend is on a different domain, ensure CORS is configured
+in Program.cs (example shown in Step 4 above).
+
+═══════════════════════════════════════════════════════════════════
+
+TESTING SCENARIOS
+───────────────────────────────────────────────────────────────────
+
+Test 1: Feature Enabled, Multiple Games
+- Set FeatureManagement:GameComingSoon = true
+- Set games 1 and 2 IsEnabled = true
+- Expected: API returns 2 games
+
+Test 2: Feature Disabled
+- Set FeatureManagement:GameComingSoon = false
+- Expected: API returns { enabled: false, games: [] }
+
+Test 3: All Games Disabled
+- Set FeatureManagement:GameComingSoon = true
+- Set all games IsEnabled = false
+- Expected: API returns { enabled: true, games: [] }
+
+Test 4: Single Game Enabled
+- Enable only game-001
+- Expected: API returns only game-001
+
+═══════════════════════════════════════════════════════════════════
+
+MANAGING COMING SOON GAMES
+───────────────────────────────────────────────────────────────────
+
+To Add a New Coming Soon Game:
+
+1. Add entry to appsettings.json ComingSoonGames array:
+   {
+     "Id": "game-004",
+     "Title": "Your New Game",
+     "ImageUrl": "/images/coming-soon/your-new-game.jpg",
+     "IsEnabled": true,
+     "ReleaseDate": "2025-12-31",
+     "DisplayOrder": 4
+   }
+
+2. Restart the API Gateway
+
+To Enable/Disable a Game:
+
+1. Change IsEnabled property in appsettings.json
+2. Restart the API Gateway
+
+OR use environment variable:
+ComingSoonGames__[INDEX]__IsEnabled=false
+
+To Enable/Disable Entire Feature:
+
+1. Change FeatureManagement:GameComingSoon in appsettings.json
+2. Restart the API Gateway
+
+OR use environment variable:
+FeatureManagement__GameComingSoon=false
+
+═══════════════════════════════════════════════════════════════════
+
+INTEGRATION WITH MICROSERVICES
+───────────────────────────────────────────────────────────────────
+
+Your existing microservice URLs remain unchanged:
+- Snake: https://localhost:1948
+- Pong: https://localhost:1941
+- Tetris: https://localhost:2626
+
+The Coming Soon feature works alongside these services and doesn't
+interfere with existing game routing.
+
+When a coming soon game is ready to launch:
+1. Add microservice URL to MicroserviceUrls section
+2. Set IsEnabled = false for that game in ComingSoonGames
+3. Game transitions from "coming soon" to playable
+
+═══════════════════════════════════════════════════════════════════
+
+SWAGGER DOCUMENTATION
+───────────────────────────────────────────────────────────────────
+
+The endpoints will automatically appear in Swagger UI:
+
+- GET /api/comingsoon - Get all coming soon games
+- GET /api/comingsoon/{id} - Get specific game
+
+Visit: https://localhost:[YOUR_PORT]/swagger
+
+═══════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING
+───────────────────────────────────────────────────────────────────
+
+Issue: API returns 404 for /api/comingsoon
+Solution: Ensure controller is in Controllers folder and namespace
+         matches your project
+
+Issue: Feature always returns enabled = false
+Solution: Check FeatureManagement__GameComingSoon is set to true
+
+Issue: No games returned even when enabled
+Solution: Check that at least one game has IsEnabled = true
+
+Issue: Configuration not loading
+Solution: Verify appsettings.json formatting (valid JSON)
+         Check configuration binding in Program.cs
+
+═══════════════════════════════════════════════════════════════════
+
+NEXT STEPS
+───────────────────────────────────────────────────────────────────
+
+Now you have a simple 4-step integration:
+1. ✓ Install NuGet package
+2. ✓ Update appsettings.json
+3. ✓ Add classes to Program.cs
+4. ✓ Create Controller
+
+Then:
+5. Test API endpoints
+6. Add frontend integration (see main implementation doc)
+7. Upload game images to static file server
+8. Deploy to production
+
+═══════════════════════════════════════════════════════════════════
+
+For complete frontend integration and detailed implementation,
+refer to: GameComingSoon_FeatureFlag_Implementation.docx
