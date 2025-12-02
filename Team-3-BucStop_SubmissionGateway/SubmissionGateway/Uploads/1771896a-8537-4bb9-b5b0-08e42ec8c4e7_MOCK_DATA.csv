@@ -1,0 +1,501 @@
+Patient_ID,Patient_Name,Admission_Date,Discharge_Date,Age,Gender,Diagnosis_Category,Treatment_Type,Initial_Pain_Score,Final_Pain_Score,Readmission,Total_Cost
+1,Teodoro Larvent,06/01/2025,11/23/2025,62,M,Respiratory,Medication,5,5,false,$23502.58
+2,Jule Brightie,08/30/2025,11/02/2025,23,M,Respiratory,Surgery,10,8,true,$24234.40
+3,Aidan Widdows,06/25/2025,11/06/2025,50,M,Orthopedic,Observation,6,4,false,$17602.78
+4,Etty Grent,03/28/2025,11/04/2025,25,F,Neurological,Observation,9,6,false,$49110.53
+5,Ninette Kighly,02/05/2025,11/15/2025,33,M,Respiratory,Surgery,5,6,false,$3475.16
+6,Vassily Jacks,07/11/2025,12/19/2025,69,F,Respiratory,Surgery,3,8,true,$38133.41
+7,Melli Harrowsmith,02/18/2025,11/07/2025,13,F,Respiratory,Observation,9,7,true,$16942.30
+8,Baron Dayes,01/31/2025,11/10/2025,49,M,Neurological,Observation,9,6,false,$11933.95
+9,Loree Ricks,07/18/2025,11/10/2025,76,F,Respiratory,Observation,4,8,true,$38931.18
+10,Nilson Clohessy,07/19/2025,11/11/2025,32,F,Neurological,Surgery,4,2,true,$20882.11
+11,Igor Scrigmour,04/20/2025,11/27/2025,35,M,Neurological,Physical Therapy,3,5,true,$6681.69
+12,Ranice O'Sherrin,08/03/2025,12/20/2025,91,F,Respiratory,Observation,5,1,true,$27109.71
+13,Noelani Lias,12/05/2024,12/07/2025,1,M,Orthopedic,Observation,9,5,true,$22039.47
+14,Margret Penlington,09/10/2025,12/25/2025,100,F,Cardiac,Surgery,8,7,true,$26895.77
+15,Suzi Branchett,08/18/2025,12/22/2025,40,F,Respiratory,Physical Therapy,6,7,true,$48542.96
+16,Brewer Vassay,04/09/2025,12/06/2025,31,F,Orthopedic,Physical Therapy,9,10,false,$28319.13
+17,Andie Dresser,10/15/2025,11/24/2025,49,F,Neurological,Observation,3,8,false,$15933.78
+18,Leslie Hullett,08/18/2025,11/20/2025,59,M,Orthopedic,Medication,5,6,true,$2657.38
+19,Ingeborg Morales,12/26/2024,12/27/2025,54,M,Neurological,Medication,3,7,false,$32518.04
+20,Corbie Arboine,03/03/2025,11/18/2025,17,F,Respiratory,Surgery,1,10,false,$45054.98
+21,Codie Binestead,06/20/2025,12/10/2025,28,M,Neurological,Surgery,7,1,true,$17326.30
+22,Tandy Becraft,06/01/2025,11/16/2025,79,M,Orthopedic,Surgery,5,1,false,$7593.28
+23,Tobiah Dolan,01/07/2025,12/28/2025,38,M,Orthopedic,Observation,10,3,false,$6983.71
+24,Lynne Terlinden,08/22/2025,11/18/2025,43,M,Cardiac,Observation,5,1,true,$6735.30
+25,Valentin Eckersall,07/31/2025,11/22/2025,96,F,Respiratory,Physical Therapy,6,9,true,$3881.76
+26,Marne Buckhurst,06/30/2025,12/10/2025,84,M,Respiratory,Surgery,4,4,true,$46454.27
+27,Antonie Webberley,02/16/2025,12/18/2025,34,F,Cardiac,Medication,9,7,true,$41477.71
+28,Stacia Borel,03/27/2025,12/08/2025,32,F,Neurological,Surgery,8,9,false,$26559.39
+29,Bradan Fogg,10/06/2025,12/10/2025,21,M,Respiratory,Physical Therapy,10,1,false,$25499.50
+30,Doy Mordaunt,12/04/2024,12/19/2025,28,F,Neurological,Observation,2,7,false,$40114.49
+31,Lorna Clausen,03/27/2025,12/10/2025,99,F,Respiratory,Observation,5,8,true,$33138.08
+32,Elaina Littrell,05/07/2025,12/09/2025,36,F,Cardiac,Observation,1,7,false,$10382.45
+33,Susie Newlands,08/16/2025,11/03/2025,95,F,Cardiac,Surgery,6,4,false,$32407.33
+34,Reamonn Phil,06/18/2025,12/08/2025,7,M,Neurological,Physical Therapy,2,7,true,$15179.37
+35,Nikita Frichley,05/09/2025,11/20/2025,55,M,Respiratory,Medication,5,6,true,$31973.88
+36,Dolley Moston,06/22/2025,12/07/2025,78,F,Cardiac,Physical Therapy,7,4,false,$20403.76
+37,Nigel Spellissy,01/16/2025,12/27/2025,96,F,Orthopedic,Physical Therapy,1,8,true,$10048.22
+38,Constantia Messenger,05/21/2025,12/01/2025,23,M,Cardiac,Observation,9,1,true,$16708.25
+39,Arleen Gilley,02/16/2025,12/03/2025,74,F,Orthopedic,Observation,5,4,false,$39993.69
+40,Winona Sharrier,03/19/2025,11/30/2025,49,M,Respiratory,Physical Therapy,5,10,false,$42601.73
+41,Dorena Skipping,07/13/2025,12/27/2025,43,F,Respiratory,Surgery,3,2,true,$18080.87
+42,Dalila Corkell,12/04/2024,12/13/2025,10,F,Cardiac,Observation,2,6,true,$6242.94
+43,Roma Dunrige,06/18/2025,12/08/2025,95,F,Neurological,Physical Therapy,6,6,false,$47503.13
+44,Blythe Beedon,03/29/2025,11/26/2025,26,F,Cardiac,Surgery,10,5,true,$6176.89
+45,Munroe Stacy,05/11/2025,12/16/2025,23,M,Neurological,Medication,8,6,true,$47441.44
+46,Karlen Nottram,07/17/2025,11/02/2025,1,F,Orthopedic,Observation,4,5,false,$12801.93
+47,Rusty Pharro,04/26/2025,12/05/2025,10,F,Cardiac,Observation,7,7,true,$7287.81
+48,Isaac Greenall,02/13/2025,11/23/2025,20,M,Orthopedic,Surgery,2,5,true,$42283.20
+49,Sawyer Poleye,10/10/2025,11/06/2025,62,M,Respiratory,Surgery,10,2,true,$20773.08
+50,Mallory Goretti,05/12/2025,12/07/2025,12,F,Respiratory,Physical Therapy,8,3,false,$2677.68
+51,Ursola Buxsey,03/18/2025,11/19/2025,77,F,Neurological,Surgery,10,2,true,$24356.04
+52,Aeriell Kamenar,06/15/2025,12/08/2025,97,M,Neurological,Observation,7,10,false,$7684.16
+53,Jade Bilofsky,04/08/2025,11/21/2025,92,F,Cardiac,Surgery,6,4,false,$36233.69
+54,Pate Dohrmann,04/23/2025,12/18/2025,60,M,Cardiac,Observation,4,10,true,$39601.85
+55,Andrus Koppeck,05/05/2025,12/29/2025,59,M,Respiratory,Physical Therapy,8,8,false,$5868.82
+56,Prue Westberg,02/07/2025,11/04/2025,96,F,Neurological,Surgery,1,9,false,$45700.80
+57,Molli Brassington,02/12/2025,12/14/2025,73,F,Cardiac,Physical Therapy,2,8,true,$38918.48
+58,Corry Allenson,05/17/2025,12/03/2025,21,F,Respiratory,Surgery,7,7,true,$44999.24
+59,Astra Kiernan,12/20/2024,12/27/2025,36,M,Neurological,Observation,7,8,false,$49958.04
+60,Gerhard Canas,04/06/2025,12/02/2025,54,F,Orthopedic,Surgery,6,8,false,$47116.08
+61,Sibby Scud,04/07/2025,11/02/2025,79,F,Orthopedic,Medication,1,8,false,$47621.00
+62,Carmela Binner,08/15/2025,12/13/2025,70,F,Neurological,Surgery,5,1,true,$23525.04
+63,Luis Bonsul,04/02/2025,11/30/2025,11,F,Neurological,Medication,6,8,true,$36102.38
+64,Marylynne Barrell,01/08/2025,12/14/2025,51,F,Respiratory,Observation,10,9,true,$23161.76
+65,Archie Guirard,01/28/2025,11/03/2025,67,M,Respiratory,Observation,4,7,false,$4343.28
+66,Rozalie Dane,06/29/2025,11/20/2025,66,M,Cardiac,Observation,8,6,true,$36629.81
+67,Wait Keddle,09/07/2025,12/27/2025,78,M,Neurological,Medication,5,6,false,$49420.48
+68,Corrie Langstone,03/25/2025,12/18/2025,26,F,Cardiac,Medication,8,10,true,$5870.32
+69,Nestor Dumphreys,01/06/2025,11/03/2025,65,F,Neurological,Physical Therapy,2,7,true,$44771.40
+70,Brad A'field,01/27/2025,11/25/2025,70,F,Neurological,Physical Therapy,5,6,true,$24636.81
+71,Rik Rimington,09/26/2025,11/22/2025,33,F,Cardiac,Observation,1,2,true,$8669.82
+72,Milzie Honacker,08/13/2025,12/17/2025,98,F,Respiratory,Observation,10,1,false,$29481.95
+73,Eveline Cucinotta,05/22/2025,12/29/2025,48,F,Orthopedic,Medication,7,1,true,$37668.56
+74,Hurlee Dreier,06/21/2025,11/29/2025,15,M,Respiratory,Observation,4,6,false,$11263.54
+75,Gian Koles,01/05/2025,12/02/2025,38,F,Respiratory,Medication,7,5,true,$25101.74
+76,Rochester MacDuff,04/25/2025,11/22/2025,74,M,Respiratory,Physical Therapy,5,8,true,$4666.38
+77,Latrina Zima,12/25/2024,12/11/2025,75,M,Respiratory,Surgery,3,6,false,$7905.82
+78,Paddy Caseri,06/09/2025,12/03/2025,2,F,Cardiac,Medication,6,6,false,$13355.37
+79,Lyndell Twell,10/20/2025,11/13/2025,8,F,Cardiac,Physical Therapy,10,9,true,$41888.48
+80,Orton Enevoldsen,08/07/2025,12/01/2025,80,M,Cardiac,Physical Therapy,2,9,true,$28595.01
+81,Camel Mitchenson,05/14/2025,12/19/2025,12,M,Orthopedic,Medication,8,10,false,$39994.75
+82,Fifi Rodenhurst,08/20/2025,11/13/2025,74,M,Cardiac,Physical Therapy,6,1,false,$40210.55
+83,Tammara Whight,10/25/2025,11/16/2025,90,M,Neurological,Observation,4,8,false,$24680.94
+84,Efren Vidgen,03/09/2025,11/15/2025,26,M,Cardiac,Observation,3,1,true,$27217.61
+85,Sheff Gallard,04/22/2025,11/20/2025,18,M,Neurological,Surgery,6,1,false,$34037.20
+86,Jessika O'Grady,05/09/2025,11/25/2025,15,F,Respiratory,Physical Therapy,5,4,false,$24048.15
+87,Sandor Lewson,08/21/2025,11/18/2025,92,F,Orthopedic,Surgery,8,3,true,$12252.26
+88,Dulciana Whitman,07/10/2025,12/11/2025,100,F,Cardiac,Surgery,2,10,false,$20617.36
+89,Kate Harrhy,04/08/2025,11/15/2025,22,F,Cardiac,Surgery,2,7,true,$47333.75
+90,Nicolas Romain,01/29/2025,11/10/2025,30,M,Orthopedic,Medication,5,9,true,$20864.75
+91,Kerby Slowan,03/28/2025,11/09/2025,21,F,Respiratory,Physical Therapy,3,3,false,$35766.15
+92,Connie Galland,02/19/2025,11/30/2025,26,M,Cardiac,Medication,10,4,false,$7310.63
+93,Jenni Brettelle,01/22/2025,12/22/2025,49,M,Orthopedic,Surgery,9,6,true,$19946.65
+94,Wally Izkovitch,09/23/2025,11/22/2025,63,F,Cardiac,Physical Therapy,2,8,true,$5459.43
+95,Lionello Gowrie,05/08/2025,11/17/2025,83,F,Orthopedic,Observation,2,4,false,$40264.60
+96,Wilhelm Carroll,06/06/2025,11/04/2025,44,F,Orthopedic,Surgery,7,3,false,$35000.57
+97,Giffard Reckhouse,03/21/2025,11/10/2025,22,F,Cardiac,Physical Therapy,2,1,false,$45330.01
+98,Armin Marner,09/24/2025,12/10/2025,22,F,Neurological,Physical Therapy,1,6,false,$40787.00
+99,Delano McCorkindale,03/15/2025,12/04/2025,7,M,Cardiac,Observation,8,8,true,$11743.30
+100,Coop Habden,12/21/2024,11/09/2025,11,M,Respiratory,Medication,10,9,false,$36742.32
+101,Georgina Cordet,05/19/2025,12/20/2025,53,M,Orthopedic,Surgery,10,10,true,$4842.90
+102,Prentice Leitch,02/09/2025,11/28/2025,29,M,Neurological,Physical Therapy,8,7,false,$34917.90
+103,Nanice Blackly,02/13/2025,11/22/2025,98,M,Orthopedic,Physical Therapy,9,4,true,$33958.76
+104,Lucian Chevalier,04/26/2025,11/30/2025,40,F,Orthopedic,Medication,3,3,true,$48356.68
+105,Winifred Treadgear,12/20/2024,11/19/2025,78,M,Respiratory,Observation,1,10,true,$3268.70
+106,Guillema Becaris,04/09/2025,11/25/2025,15,M,Cardiac,Surgery,8,10,false,$14620.00
+107,Sib Moreinu,06/04/2025,11/21/2025,60,M,Respiratory,Medication,2,1,false,$34231.12
+108,Ryley Diggell,02/17/2025,12/23/2025,78,M,Cardiac,Observation,8,5,true,$41450.73
+109,Berty Thorold,12/15/2024,11/25/2025,23,M,Respiratory,Observation,8,4,false,$49476.07
+110,Waneta Rowbottom,05/30/2025,11/12/2025,95,M,Neurological,Physical Therapy,1,4,true,$9751.09
+111,Corny Conboy,01/10/2025,11/27/2025,70,M,Cardiac,Physical Therapy,6,3,true,$35257.30
+112,Marion Nobbs,02/26/2025,11/29/2025,2,F,Orthopedic,Physical Therapy,10,9,true,$9296.62
+113,Enoch Cackett,01/23/2025,12/05/2025,94,M,Respiratory,Surgery,2,3,true,$25150.61
+114,Loleta Muncie,10/01/2025,12/07/2025,2,F,Cardiac,Physical Therapy,4,6,false,$31895.74
+115,Anthea Larner,08/30/2025,11/18/2025,7,F,Orthopedic,Physical Therapy,2,9,false,$18259.19
+116,Xever Borrowman,10/27/2025,11/07/2025,82,F,Respiratory,Medication,9,10,true,$2658.81
+117,Ellary Colbran,08/11/2025,12/16/2025,10,M,Cardiac,Physical Therapy,5,3,true,$41570.00
+118,Francoise Shimoni,12/25/2024,11/03/2025,78,F,Cardiac,Observation,7,3,false,$48517.05
+119,Sibley Grigorian,03/06/2025,11/07/2025,67,M,Orthopedic,Physical Therapy,7,3,true,$3139.65
+120,Godwin Huccaby,08/25/2025,12/05/2025,5,M,Cardiac,Observation,2,9,false,$24660.18
+121,Merla Cockman,07/05/2025,11/26/2025,15,M,Orthopedic,Physical Therapy,7,6,true,$38977.32
+122,Bethany Heaffey,08/01/2025,11/03/2025,1,M,Respiratory,Surgery,1,9,false,$47469.30
+123,Neille Shearston,10/28/2025,11/13/2025,78,F,Orthopedic,Medication,2,2,false,$48819.48
+124,Ines Grissett,04/02/2025,12/28/2025,58,F,Neurological,Medication,8,7,true,$4656.27
+125,Rodrique MacGilrewy,01/22/2025,12/05/2025,17,F,Cardiac,Surgery,1,9,true,$9308.07
+126,Gonzalo Phebey,02/21/2025,11/11/2025,10,M,Respiratory,Physical Therapy,10,7,true,$5951.80
+127,Norris Pyle,12/27/2024,11/28/2025,59,M,Neurological,Physical Therapy,1,2,true,$45556.49
+128,Noella Goldstone,06/30/2025,12/29/2025,64,M,Orthopedic,Medication,10,8,true,$26121.90
+129,Burl Clampton,03/21/2025,11/08/2025,27,M,Cardiac,Surgery,7,9,false,$3858.33
+130,Katusha Garaway,09/15/2025,12/20/2025,36,M,Respiratory,Surgery,3,1,false,$8491.35
+131,Kimmy Hampton,03/23/2025,12/19/2025,88,M,Orthopedic,Medication,3,1,false,$3090.17
+132,Felic Le Marchand,01/26/2025,11/30/2025,93,F,Neurological,Physical Therapy,7,9,false,$30833.69
+133,Shayla Cornfoot,02/14/2025,12/21/2025,11,F,Cardiac,Observation,2,7,true,$25077.44
+134,Flora Marcoolyn,08/13/2025,11/15/2025,98,F,Orthopedic,Physical Therapy,9,1,false,$5950.52
+135,Hildagard Macquire,06/26/2025,11/04/2025,99,M,Orthopedic,Surgery,10,9,true,$14201.67
+136,Aretha Vaudrey,06/21/2025,11/30/2025,22,M,Orthopedic,Medication,4,8,true,$25811.05
+137,Kai Sommerton,08/05/2025,11/02/2025,1,M,Orthopedic,Observation,7,3,true,$49018.58
+138,Clair Jurek,10/14/2025,11/10/2025,44,F,Cardiac,Observation,6,1,false,$3584.17
+139,Marcos Boldt,05/07/2025,12/21/2025,32,F,Orthopedic,Surgery,6,5,true,$13619.81
+140,Harriette Franck,06/23/2025,12/25/2025,17,M,Respiratory,Observation,5,5,true,$49240.97
+141,Florance Cunniffe,05/28/2025,11/05/2025,23,M,Neurological,Observation,9,9,false,$36062.31
+142,Cherin Levensky,02/09/2025,12/02/2025,18,F,Cardiac,Medication,4,3,false,$4402.63
+143,Christophe Stanfield,07/30/2025,12/02/2025,90,F,Neurological,Physical Therapy,8,7,true,$30486.53
+144,Marybelle Mawhinney,08/03/2025,11/30/2025,33,M,Respiratory,Medication,10,8,false,$13189.50
+145,Sibylle Haycraft,01/16/2025,12/22/2025,92,M,Cardiac,Medication,5,1,false,$32588.13
+146,Cecilius Edens,05/31/2025,12/17/2025,76,M,Cardiac,Surgery,8,3,true,$18876.57
+147,Kaitlyn Blinkhorn,05/31/2025,11/15/2025,27,M,Orthopedic,Physical Therapy,2,7,true,$14337.02
+148,Igor Tylor,12/20/2024,11/07/2025,96,F,Cardiac,Medication,1,10,false,$7714.47
+149,Griffin Amesbury,12/08/2024,12/21/2025,75,M,Respiratory,Physical Therapy,6,10,false,$25794.18
+150,Kristy Pavlik,12/10/2024,12/23/2025,61,F,Cardiac,Physical Therapy,6,7,true,$42570.37
+151,Olivia Westmoreland,04/30/2025,12/19/2025,43,M,Orthopedic,Physical Therapy,10,8,true,$2441.88
+152,Chelsey Youde,05/02/2025,11/03/2025,74,M,Respiratory,Physical Therapy,2,4,true,$31389.72
+153,Van Vamplew,10/25/2025,11/21/2025,43,M,Cardiac,Observation,7,1,true,$11154.49
+154,Guillaume Babon,03/05/2025,11/21/2025,22,M,Cardiac,Observation,4,2,false,$45979.03
+155,Mose Watsham,03/02/2025,12/03/2025,82,M,Neurological,Surgery,5,9,true,$15650.60
+156,Muire Blant,06/06/2025,11/22/2025,93,M,Orthopedic,Observation,4,1,true,$42816.12
+157,Natka Matthiesen,12/10/2024,12/05/2025,63,M,Cardiac,Physical Therapy,7,1,true,$39031.02
+158,Crin Walby,03/13/2025,11/19/2025,82,M,Neurological,Medication,1,7,false,$9537.95
+159,Ranee Sutlieff,10/28/2025,11/28/2025,67,M,Neurological,Medication,10,3,true,$5311.52
+160,Tirrell Goodwyn,12/27/2024,11/03/2025,8,M,Cardiac,Surgery,5,10,false,$6259.59
+161,Catarina Lippiello,02/07/2025,11/25/2025,28,M,Neurological,Surgery,9,8,true,$49156.59
+162,Alic Pargiter,03/17/2025,11/13/2025,81,F,Neurological,Physical Therapy,9,8,true,$44852.86
+163,Dominique Atthow,09/01/2025,12/06/2025,87,F,Respiratory,Physical Therapy,7,8,true,$45448.50
+164,Nichols Avrasin,06/09/2025,12/24/2025,7,F,Neurological,Physical Therapy,3,1,false,$36194.46
+165,Warren Mannock,06/16/2025,11/16/2025,50,M,Respiratory,Surgery,6,7,true,$45798.31
+166,Louis Grinishin,06/13/2025,11/14/2025,63,F,Respiratory,Physical Therapy,1,7,true,$26643.00
+167,Ethan Escot,05/26/2025,11/07/2025,94,F,Neurological,Observation,6,2,true,$42708.31
+168,Ellen Crayk,08/20/2025,11/08/2025,99,M,Respiratory,Surgery,3,8,true,$37002.47
+169,Dory Unitt,01/09/2025,11/04/2025,71,F,Orthopedic,Physical Therapy,2,7,false,$7032.09
+170,Erhard Voden,06/17/2025,12/19/2025,100,F,Respiratory,Physical Therapy,3,9,false,$5820.66
+171,Steffie Kimmerling,08/30/2025,11/14/2025,48,F,Respiratory,Observation,5,1,false,$19461.83
+172,Celestyn Tunnow,10/26/2025,12/24/2025,43,M,Cardiac,Physical Therapy,8,2,false,$4340.08
+173,Ulises Hurdman,10/09/2025,11/28/2025,84,M,Neurological,Surgery,9,5,false,$21008.58
+174,Bamby Crudgington,02/17/2025,11/30/2025,5,F,Respiratory,Surgery,2,3,true,$34647.20
+175,Eadmund Treamayne,03/16/2025,12/19/2025,86,M,Respiratory,Medication,9,9,true,$29849.25
+176,Yelena Simonou,07/29/2025,11/08/2025,70,F,Respiratory,Physical Therapy,5,10,true,$21448.57
+177,Janek Savege,06/23/2025,11/16/2025,54,F,Cardiac,Observation,9,10,false,$24251.69
+178,Ronald Ber,06/21/2025,12/10/2025,7,F,Orthopedic,Observation,9,6,false,$21780.76
+179,Ethan Stringman,09/07/2025,12/10/2025,14,F,Orthopedic,Medication,9,7,true,$2593.75
+180,Anderea Sandars,05/06/2025,11/28/2025,32,M,Neurological,Surgery,1,2,true,$45101.10
+181,Alvina Pattullo,09/29/2025,11/23/2025,94,F,Neurological,Surgery,4,1,false,$16804.73
+182,Hastie Simmonds,10/10/2025,12/15/2025,65,M,Respiratory,Physical Therapy,10,4,false,$38594.97
+183,Isador Kingsmill,03/15/2025,12/10/2025,48,F,Orthopedic,Observation,9,9,true,$18307.91
+184,Virgie Colomb,12/08/2024,11/27/2025,9,F,Respiratory,Surgery,3,2,true,$13523.92
+185,Ethel Poltun,04/22/2025,11/30/2025,28,F,Cardiac,Surgery,3,7,false,$48060.29
+186,Natala Crompton,05/13/2025,12/12/2025,17,M,Cardiac,Medication,7,9,false,$9069.02
+187,Teressa Baudacci,03/28/2025,11/11/2025,20,M,Orthopedic,Physical Therapy,3,8,false,$15497.31
+188,Murry Bragg,03/10/2025,12/17/2025,30,F,Respiratory,Physical Therapy,6,5,true,$9636.75
+189,Clay Toothill,03/24/2025,11/05/2025,85,F,Respiratory,Medication,4,10,true,$6635.34
+190,Romain Lunbech,08/15/2025,12/04/2025,74,F,Orthopedic,Physical Therapy,7,7,false,$37066.60
+191,Mick McMichell,07/05/2025,12/09/2025,3,M,Respiratory,Medication,9,9,false,$25513.82
+192,Sherlocke Carnow,06/05/2025,12/24/2025,9,F,Cardiac,Observation,3,5,true,$32207.50
+193,Dorella Boundy,02/12/2025,11/02/2025,29,F,Respiratory,Observation,5,6,true,$32349.89
+194,Bank Andrews,03/01/2025,11/26/2025,17,M,Cardiac,Physical Therapy,5,10,false,$26274.84
+195,Judi Vaughn,03/04/2025,12/27/2025,65,M,Neurological,Physical Therapy,3,9,true,$24583.05
+196,Lishe Rubinovitch,01/10/2025,12/09/2025,47,M,Orthopedic,Observation,3,4,false,$34935.35
+197,Addison D'Aulby,10/29/2025,11/08/2025,84,F,Respiratory,Observation,3,1,true,$36674.64
+198,Jannel Samart,08/27/2025,12/03/2025,1,F,Cardiac,Physical Therapy,6,10,true,$21246.88
+199,Pooh Brettor,05/01/2025,11/04/2025,96,F,Orthopedic,Physical Therapy,8,3,true,$44848.27
+200,Amberly Else,05/12/2025,12/26/2025,19,M,Respiratory,Observation,4,8,false,$13730.30
+201,Ulick Callaghan,05/08/2025,11/04/2025,49,M,Cardiac,Observation,2,2,false,$3946.04
+202,Pier Humbie,07/26/2025,11/24/2025,72,F,Neurological,Medication,1,1,true,$29958.79
+203,Nathanael Lamond,07/24/2025,11/16/2025,7,F,Orthopedic,Observation,7,3,false,$33787.44
+204,Annadiana Hewins,10/02/2025,11/13/2025,47,M,Orthopedic,Medication,8,9,false,$28392.83
+205,Aleda Poynter,03/23/2025,11/27/2025,66,F,Cardiac,Surgery,4,1,false,$9144.58
+206,Wenda Zealy,02/17/2025,11/23/2025,20,F,Orthopedic,Surgery,6,3,false,$7447.91
+207,Marcellina Gremane,02/09/2025,12/29/2025,27,F,Respiratory,Medication,5,2,false,$46725.18
+208,Beltran Drewe,04/23/2025,12/14/2025,81,M,Neurological,Surgery,1,5,false,$33815.51
+209,Vassily Breen,02/04/2025,11/30/2025,10,F,Neurological,Medication,4,7,false,$8307.22
+210,Lotte Kitchener,08/04/2025,12/28/2025,83,M,Orthopedic,Medication,9,10,false,$4453.60
+211,Trixie Ramel,10/01/2025,11/07/2025,38,M,Cardiac,Physical Therapy,9,7,true,$39244.14
+212,Imojean Campo,09/16/2025,11/07/2025,13,M,Orthopedic,Physical Therapy,6,7,true,$20242.81
+213,Shandy Lapsley,07/17/2025,11/02/2025,97,M,Cardiac,Medication,5,7,true,$25485.12
+214,Riccardo Abrami,12/18/2024,12/28/2025,52,M,Orthopedic,Medication,7,3,false,$7253.40
+215,Ingra Noke,06/27/2025,11/26/2025,19,M,Neurological,Observation,9,7,true,$26188.05
+216,Robinett Hubner,08/10/2025,11/28/2025,25,F,Orthopedic,Physical Therapy,8,3,false,$14977.48
+217,Timmie Celiz,07/05/2025,12/05/2025,70,M,Cardiac,Surgery,8,1,false,$8952.61
+218,Kerrill Pennycock,09/14/2025,11/26/2025,24,F,Orthopedic,Observation,6,10,true,$29798.43
+219,Barris Cawte,08/28/2025,11/25/2025,12,M,Cardiac,Medication,2,8,true,$22739.19
+220,Helge Thorpe,08/16/2025,12/29/2025,12,F,Neurological,Medication,8,8,false,$4910.19
+221,Niall Aguirre,03/15/2025,12/07/2025,66,M,Neurological,Observation,9,9,false,$6353.83
+222,Juliane Reah,04/19/2025,11/23/2025,45,M,Neurological,Physical Therapy,6,1,false,$48906.12
+223,Tommie Vigurs,08/28/2025,11/30/2025,10,F,Cardiac,Physical Therapy,1,6,false,$2666.42
+224,Jerome Manuaud,10/29/2025,12/03/2025,19,M,Cardiac,Medication,4,10,true,$4748.57
+225,Esther Domeney,06/20/2025,11/13/2025,2,M,Neurological,Physical Therapy,8,1,false,$29316.34
+226,Bary Fumagalli,08/30/2025,11/28/2025,76,M,Respiratory,Surgery,1,5,false,$39998.20
+227,Cleo Iacovini,07/04/2025,11/03/2025,40,M,Orthopedic,Observation,1,3,false,$41669.63
+228,Page Orpen,01/21/2025,11/13/2025,95,M,Orthopedic,Surgery,9,8,false,$41608.86
+229,Emyle Shwalbe,09/13/2025,12/16/2025,19,F,Respiratory,Medication,5,1,true,$49056.45
+230,Micheal Orrobin,09/04/2025,12/12/2025,27,M,Neurological,Medication,1,3,false,$20250.87
+231,Yettie Jencken,12/09/2024,11/21/2025,73,M,Orthopedic,Physical Therapy,2,3,true,$24823.67
+232,Jeane O'Reilly,12/30/2024,12/07/2025,67,M,Neurological,Medication,5,8,false,$12084.09
+233,Cherianne Braga,12/14/2024,12/24/2025,46,M,Orthopedic,Observation,4,3,false,$15340.92
+234,Marjy Frake,05/12/2025,12/03/2025,38,M,Neurological,Physical Therapy,7,7,false,$9821.89
+235,Westleigh Goulborne,02/19/2025,11/11/2025,38,M,Cardiac,Surgery,4,5,true,$21526.43
+236,Farra Blaine,12/12/2024,12/05/2025,54,M,Orthopedic,Medication,10,6,false,$9847.74
+237,Abeu Gallamore,05/04/2025,12/19/2025,66,M,Cardiac,Surgery,2,1,false,$31727.89
+238,Alford Proffer,01/12/2025,11/28/2025,53,M,Neurological,Medication,3,1,true,$6601.45
+239,Jyoti Bramelt,07/09/2025,12/19/2025,29,M,Respiratory,Physical Therapy,9,6,true,$48625.56
+240,Jemie Pirkis,06/25/2025,12/15/2025,98,M,Orthopedic,Medication,8,3,false,$11341.00
+241,Stephi Kid,07/12/2025,11/23/2025,23,M,Cardiac,Medication,1,6,false,$41429.68
+242,Nealon MacCallion,01/09/2025,11/23/2025,84,F,Respiratory,Medication,9,3,false,$48974.76
+243,Elsey Northcliffe,04/16/2025,12/03/2025,96,F,Respiratory,Physical Therapy,9,5,true,$33965.33
+244,Grenville Lowthian,02/24/2025,11/13/2025,41,F,Neurological,Observation,7,6,false,$42210.20
+245,Tasia Cassels,02/01/2025,12/28/2025,44,F,Respiratory,Physical Therapy,6,2,true,$25999.50
+246,Diahann Maryman,01/26/2025,11/29/2025,35,F,Cardiac,Physical Therapy,3,7,false,$6233.41
+247,Imogene Melia,12/06/2024,11/12/2025,89,F,Orthopedic,Physical Therapy,9,2,false,$49747.32
+248,Millard Giacobo,10/11/2025,11/02/2025,48,M,Neurological,Medication,9,1,true,$26840.25
+249,Matilda Bedells,12/16/2024,12/29/2025,4,M,Neurological,Medication,10,3,false,$29448.24
+250,Neall Footitt,07/24/2025,12/17/2025,45,F,Respiratory,Surgery,3,3,false,$23263.45
+251,Hedi Ferrelli,12/10/2024,11/18/2025,92,M,Cardiac,Physical Therapy,6,10,false,$23265.17
+252,Leta Peaurt,12/01/2024,11/24/2025,27,F,Respiratory,Observation,4,8,true,$43228.27
+253,Delbert Nazer,10/06/2025,11/08/2025,39,F,Cardiac,Surgery,4,8,false,$35912.05
+254,Lydie Skoggins,12/23/2024,12/13/2025,74,F,Orthopedic,Physical Therapy,10,7,false,$3118.38
+255,Oralee Eckford,09/27/2025,11/11/2025,2,F,Neurological,Physical Therapy,10,4,false,$39208.94
+256,Carrissa Scaice,10/21/2025,11/06/2025,21,F,Neurological,Surgery,10,1,false,$5952.77
+257,Huntlee Scotchmer,10/09/2025,12/02/2025,57,M,Respiratory,Surgery,10,8,true,$39126.72
+258,Roderick Yetton,12/22/2024,12/04/2025,54,F,Respiratory,Observation,8,3,false,$12350.03
+259,Silvie Jefferies,07/05/2025,11/28/2025,29,F,Cardiac,Observation,2,5,true,$22957.37
+260,Arch Eplate,01/16/2025,12/06/2025,52,M,Orthopedic,Surgery,4,8,false,$17591.92
+261,Aymer Angless,12/24/2024,12/19/2025,14,M,Neurological,Physical Therapy,3,7,true,$4672.69
+262,Val Mauro,01/28/2025,12/16/2025,70,M,Neurological,Physical Therapy,5,7,true,$49772.71
+263,Boonie Caccavale,06/26/2025,12/13/2025,62,F,Respiratory,Observation,2,1,false,$13176.76
+264,Daloris Sharrier,06/28/2025,11/05/2025,16,M,Orthopedic,Surgery,9,7,true,$9925.98
+265,Joy Sturch,09/30/2025,12/27/2025,93,F,Orthopedic,Observation,4,7,false,$41276.14
+266,Adelina Driffe,04/01/2025,12/13/2025,57,M,Orthopedic,Surgery,8,2,false,$10327.89
+267,Elinor Antowski,02/26/2025,11/17/2025,53,F,Orthopedic,Physical Therapy,8,1,true,$30626.28
+268,Leontyne Muckersie,04/03/2025,12/12/2025,7,M,Neurological,Medication,2,1,true,$10618.84
+269,Aloisia Rate,03/12/2025,11/19/2025,85,F,Respiratory,Surgery,10,3,false,$8387.38
+270,Lanni Boyne,12/03/2024,11/18/2025,60,M,Neurological,Observation,2,3,true,$20842.31
+271,Aeriell Raynes,08/29/2025,12/03/2025,10,M,Neurological,Physical Therapy,10,10,true,$10345.85
+272,Yorker Thying,09/13/2025,11/06/2025,66,F,Respiratory,Medication,4,8,true,$46261.53
+273,Carie Learmont,07/20/2025,11/10/2025,12,M,Respiratory,Observation,7,4,false,$38698.70
+274,Courtnay Langthorne,09/13/2025,11/29/2025,60,F,Cardiac,Physical Therapy,3,6,true,$36979.41
+275,Dieter Twiggins,12/28/2024,11/25/2025,34,M,Respiratory,Observation,9,2,false,$30364.00
+276,Madelena Cowdery,12/25/2024,12/10/2025,14,F,Cardiac,Physical Therapy,1,9,false,$2408.22
+277,Tobin Ceeley,02/07/2025,12/17/2025,88,M,Cardiac,Physical Therapy,2,8,false,$15635.37
+278,Ros Beddoe,03/11/2025,12/13/2025,39,M,Orthopedic,Surgery,8,6,true,$33028.44
+279,Cad Peer,05/21/2025,11/16/2025,46,F,Orthopedic,Surgery,10,10,false,$19890.55
+280,Kettie Twoohy,10/28/2025,11/28/2025,17,F,Neurological,Medication,10,9,true,$22324.86
+281,Maisie Meys,12/13/2024,12/17/2025,70,F,Neurological,Physical Therapy,1,4,false,$30370.36
+282,Vivianna Bonifazio,08/16/2025,11/10/2025,36,F,Respiratory,Medication,9,6,false,$27371.40
+283,Lenci Tortoishell,12/11/2024,11/20/2025,6,F,Orthopedic,Physical Therapy,10,6,false,$49624.85
+284,Dyane Ranscomb,12/05/2024,12/26/2025,15,F,Orthopedic,Physical Therapy,9,10,true,$7720.38
+285,Tanny Hobell,05/05/2025,11/16/2025,85,F,Respiratory,Medication,2,10,false,$5284.87
+286,Wayne Cully,09/03/2025,11/18/2025,76,M,Cardiac,Observation,10,6,true,$37870.94
+287,Bastian Ivimy,12/17/2024,11/12/2025,92,M,Neurological,Physical Therapy,10,3,true,$5717.84
+288,Sunny Demoge,07/15/2025,12/12/2025,75,M,Neurological,Observation,8,1,true,$19820.11
+289,Thoma Marrows,03/19/2025,11/23/2025,2,M,Neurological,Surgery,4,5,true,$42450.07
+290,Parrnell Gealy,10/22/2025,12/02/2025,91,M,Orthopedic,Observation,10,3,true,$29596.55
+291,Eleanor Pankettman,07/27/2025,12/27/2025,3,M,Cardiac,Surgery,7,8,false,$4477.56
+292,Kaylee Le Conte,03/13/2025,12/08/2025,60,M,Orthopedic,Observation,1,9,false,$13312.57
+293,Davida Fellis,04/09/2025,11/28/2025,80,M,Neurological,Physical Therapy,4,2,false,$17462.14
+294,Brent Pauwel,07/20/2025,12/16/2025,32,F,Cardiac,Surgery,9,4,false,$8572.41
+295,Tomas Figgins,09/21/2025,11/24/2025,17,F,Orthopedic,Observation,7,5,true,$41841.21
+296,Renata Heintz,02/27/2025,11/28/2025,65,M,Respiratory,Medication,6,1,false,$18961.82
+297,Andi Roblou,09/03/2025,12/06/2025,69,M,Neurological,Physical Therapy,3,9,true,$47219.45
+298,Basilius Danson,06/04/2025,11/22/2025,79,M,Orthopedic,Medication,1,7,false,$49873.75
+299,Craggy Chiese,03/19/2025,12/03/2025,10,M,Cardiac,Observation,4,3,true,$13928.63
+300,Dani Bernardon,01/25/2025,12/11/2025,68,F,Neurological,Surgery,4,8,true,$22714.63
+301,Ingelbert Maghull,02/25/2025,11/16/2025,55,F,Cardiac,Medication,1,4,true,$4375.60
+302,Doria Scotchbrook,08/22/2025,12/04/2025,31,F,Neurological,Medication,9,5,false,$34690.87
+303,Debor Chattell,08/02/2025,12/19/2025,76,F,Cardiac,Physical Therapy,7,8,true,$20928.22
+304,Corabel Josephson,08/05/2025,11/05/2025,31,M,Neurological,Medication,4,10,true,$12901.14
+305,Burtie Tweedle,03/24/2025,11/28/2025,96,M,Neurological,Surgery,5,1,true,$15998.07
+306,Abelard Bridge,02/13/2025,11/03/2025,95,M,Cardiac,Observation,10,7,true,$45152.98
+307,Catlaina Lummis,06/08/2025,12/24/2025,16,F,Orthopedic,Physical Therapy,9,1,true,$30093.88
+308,Ruddy Dik,04/22/2025,12/24/2025,40,M,Respiratory,Surgery,3,10,true,$28892.95
+309,Kile Westmacott,06/14/2025,11/17/2025,15,F,Respiratory,Observation,5,10,true,$43627.54
+310,Dyna Allsup,10/16/2025,11/03/2025,89,M,Orthopedic,Physical Therapy,4,6,false,$17996.53
+311,Clair Vearnals,04/02/2025,11/06/2025,90,F,Respiratory,Surgery,3,1,false,$38212.99
+312,Egon Bretherick,01/13/2025,12/24/2025,91,F,Cardiac,Medication,1,6,true,$21205.56
+313,Malina Keningley,05/13/2025,12/25/2025,1,F,Orthopedic,Medication,9,6,false,$31497.28
+314,Katheryn Wylder,12/23/2024,12/05/2025,81,M,Neurological,Medication,6,3,true,$22487.19
+315,Robbyn Glamart,10/01/2025,11/23/2025,30,F,Orthopedic,Physical Therapy,7,10,true,$14212.74
+316,Ulrick Andreotti,01/13/2025,12/17/2025,41,M,Orthopedic,Surgery,5,4,false,$41229.37
+317,Vinson Fenny,12/22/2024,11/05/2025,72,M,Neurological,Physical Therapy,2,1,true,$43741.22
+318,Catharina Wordley,06/03/2025,11/25/2025,67,M,Neurological,Physical Therapy,1,1,false,$22254.40
+319,Alli Benns,05/16/2025,11/16/2025,78,F,Respiratory,Medication,1,7,false,$48966.33
+320,Oberon Campling,06/17/2025,12/02/2025,20,M,Respiratory,Surgery,5,3,false,$20287.25
+321,Gian Benediktovich,04/26/2025,12/06/2025,56,M,Neurological,Physical Therapy,3,4,false,$21503.55
+322,Sher Marney,03/02/2025,12/28/2025,40,M,Cardiac,Observation,1,9,true,$28636.01
+323,Ebonee Screase,08/23/2025,12/11/2025,77,F,Neurological,Physical Therapy,2,6,true,$48627.15
+324,Merridie Stratten,03/02/2025,12/19/2025,77,M,Orthopedic,Observation,10,7,true,$37010.85
+325,Rianon Woodroffe,10/18/2025,12/10/2025,67,M,Cardiac,Physical Therapy,3,8,true,$27824.67
+326,Angelia Elan,09/30/2025,12/17/2025,55,F,Cardiac,Physical Therapy,3,10,true,$40666.00
+327,Vinnie Campsall,10/24/2025,11/15/2025,84,F,Neurological,Medication,5,8,false,$43283.17
+328,Petra Griffoen,06/14/2025,12/01/2025,36,F,Respiratory,Physical Therapy,1,10,false,$42015.54
+329,Helena Coleford,07/06/2025,11/09/2025,13,F,Respiratory,Observation,5,2,true,$20790.06
+330,Tedie Luton,06/16/2025,12/28/2025,62,M,Cardiac,Surgery,10,5,true,$14810.21
+331,Faulkner Franck,02/07/2025,12/25/2025,63,F,Cardiac,Physical Therapy,1,8,true,$15191.79
+332,Franciska Newgrosh,07/21/2025,11/27/2025,58,F,Respiratory,Physical Therapy,10,10,false,$33357.34
+333,Gamaliel Downie,08/15/2025,12/23/2025,76,M,Cardiac,Surgery,1,3,false,$23830.02
+334,Catie Lodford,01/26/2025,12/28/2025,83,F,Orthopedic,Surgery,7,8,false,$43845.11
+335,Caralie Keelinge,02/03/2025,12/26/2025,93,F,Respiratory,Medication,6,10,true,$33573.23
+336,Orlan Battson,06/29/2025,12/01/2025,96,M,Respiratory,Medication,7,4,true,$6085.94
+337,Marylou Floch,04/28/2025,12/20/2025,57,F,Cardiac,Observation,6,4,false,$27303.27
+338,Iolande Della,06/12/2025,11/04/2025,8,M,Cardiac,Medication,5,1,true,$33929.25
+339,Lexine Janks,01/02/2025,11/11/2025,88,F,Cardiac,Observation,10,7,true,$38980.66
+340,Lurleen Andreotti,01/25/2025,11/19/2025,99,F,Neurological,Observation,4,8,false,$24372.82
+341,Coreen Levicount,04/07/2025,12/10/2025,22,F,Neurological,Medication,9,1,false,$33617.86
+342,Karissa Doudney,12/11/2024,12/05/2025,54,F,Orthopedic,Surgery,8,3,true,$40292.99
+343,Blinni Lowndsborough,01/25/2025,11/30/2025,69,M,Respiratory,Surgery,9,1,true,$31193.60
+344,Nathalia Bracco,04/14/2025,12/18/2025,98,F,Neurological,Medication,1,9,false,$25187.84
+345,Rafaellle Vannikov,12/06/2024,11/21/2025,26,M,Orthopedic,Physical Therapy,6,10,false,$42198.87
+346,Conn Dimsdale,06/18/2025,12/23/2025,14,M,Neurological,Surgery,6,4,false,$25429.02
+347,Fair Wytchard,05/27/2025,12/26/2025,41,F,Neurological,Medication,10,9,false,$15376.61
+348,Waring O'Brien,03/15/2025,12/17/2025,68,F,Neurological,Observation,10,5,false,$41136.88
+349,Mano Fowden,10/24/2025,11/05/2025,39,F,Orthopedic,Physical Therapy,9,3,false,$5738.90
+350,Sarita Haydney,06/24/2025,12/06/2025,28,M,Neurological,Medication,9,8,true,$19503.16
+351,Janifer Pearl,02/23/2025,12/28/2025,3,F,Orthopedic,Surgery,3,6,true,$22042.72
+352,Thedrick Heitz,09/23/2025,11/06/2025,59,F,Orthopedic,Surgery,1,10,false,$46751.37
+353,Allissa Symcock,03/09/2025,11/04/2025,17,F,Orthopedic,Surgery,2,5,false,$24638.46
+354,Taryn Turneux,01/30/2025,11/28/2025,54,F,Neurological,Surgery,6,3,false,$5997.05
+355,Halette McGarvey,10/17/2025,12/06/2025,74,M,Orthopedic,Medication,2,10,true,$19844.13
+356,Elizabeth Bussen,09/11/2025,11/10/2025,17,M,Orthopedic,Observation,4,8,false,$23053.90
+357,Justinn Goligly,12/07/2024,12/12/2025,86,F,Neurological,Physical Therapy,2,7,false,$29176.05
+358,Christos McClosh,08/28/2025,12/23/2025,74,F,Neurological,Medication,10,7,false,$17468.58
+359,Teddy Sommerling,05/29/2025,12/16/2025,76,M,Neurological,Physical Therapy,5,2,true,$12539.83
+360,Pincas Cristofano,10/20/2025,12/02/2025,94,F,Orthopedic,Medication,7,9,true,$12139.39
+361,Clarie Penhall,07/04/2025,12/11/2025,48,M,Cardiac,Physical Therapy,1,5,false,$27900.61
+362,Lauree Pund,06/11/2025,12/28/2025,77,M,Orthopedic,Observation,6,2,false,$36604.66
+363,Kaja Malley,03/23/2025,11/06/2025,41,M,Orthopedic,Observation,10,6,true,$44015.49
+364,Frieda Northleigh,12/08/2024,11/29/2025,95,M,Cardiac,Observation,7,9,true,$21704.70
+365,Hildagard Byer,09/17/2025,12/16/2025,54,M,Orthopedic,Observation,3,9,false,$28214.36
+366,Claus Glauber,04/02/2025,12/23/2025,86,F,Cardiac,Medication,7,7,true,$35633.98
+367,Corey Ralling,10/30/2025,11/16/2025,89,M,Respiratory,Medication,7,7,true,$32914.63
+368,Thorin Rohlf,08/11/2025,11/17/2025,86,F,Neurological,Surgery,6,8,false,$47279.79
+369,Perice Warret,02/07/2025,11/29/2025,29,F,Neurological,Observation,7,1,true,$44841.04
+370,Barbaraanne Overlow,10/14/2025,12/07/2025,28,M,Cardiac,Physical Therapy,10,4,true,$41608.72
+371,Olenolin Swallow,07/16/2025,12/03/2025,36,M,Respiratory,Medication,3,1,false,$26431.73
+372,Angelle Jobin,07/08/2025,11/02/2025,33,F,Neurological,Observation,8,6,false,$30430.05
+373,Cinnamon Hutcheson,02/13/2025,12/23/2025,51,M,Cardiac,Surgery,7,2,false,$8966.83
+374,Ruperta Muddle,07/14/2025,11/20/2025,50,F,Orthopedic,Medication,7,2,false,$19563.49
+375,Maryanne Hyam,02/21/2025,11/19/2025,29,M,Respiratory,Physical Therapy,4,1,false,$24296.46
+376,Bartlet Whitcher,04/20/2025,12/10/2025,43,M,Orthopedic,Medication,10,5,false,$48181.16
+377,Marci Odom,09/05/2025,11/20/2025,36,F,Cardiac,Physical Therapy,5,7,true,$8779.87
+378,Joletta Borsay,10/21/2025,12/21/2025,37,M,Orthopedic,Physical Therapy,1,10,false,$2569.27
+379,Charlton Jonk,12/11/2024,11/30/2025,47,M,Orthopedic,Observation,5,10,true,$39429.86
+380,Cleveland Paskins,07/28/2025,12/09/2025,12,F,Neurological,Observation,9,5,true,$48663.31
+381,Elise Boyett,01/27/2025,11/06/2025,1,M,Cardiac,Physical Therapy,4,9,true,$16716.06
+382,Sophronia Baldacco,12/28/2024,11/07/2025,73,F,Neurological,Surgery,8,5,true,$35696.66
+383,Dalt Schultheiss,04/11/2025,11/16/2025,12,F,Neurological,Observation,10,8,false,$5586.02
+384,Rudolfo Bachanski,12/20/2024,12/07/2025,8,F,Respiratory,Surgery,6,5,false,$29199.36
+385,Corliss Graves,03/10/2025,12/20/2025,18,F,Neurological,Surgery,6,1,true,$28441.24
+386,Nikki Kynastone,05/18/2025,11/18/2025,6,M,Orthopedic,Physical Therapy,2,5,true,$30528.11
+387,Massimiliano Gutman,09/27/2025,11/22/2025,22,F,Neurological,Medication,2,4,true,$16113.81
+388,Abba Buckerfield,03/02/2025,12/27/2025,72,F,Cardiac,Medication,8,10,false,$47905.14
+389,Blanche Tollady,02/10/2025,11/09/2025,12,M,Respiratory,Physical Therapy,2,10,false,$9652.62
+390,Leena Chaff,02/24/2025,11/07/2025,75,F,Orthopedic,Medication,5,2,true,$47237.42
+391,Francine Lindsey,02/17/2025,11/17/2025,66,M,Neurological,Observation,1,5,false,$40993.91
+392,Lev Piercy,07/29/2025,12/10/2025,19,F,Neurological,Medication,7,4,true,$47094.54
+393,Pamelina MacBey,10/01/2025,11/25/2025,55,M,Neurological,Observation,1,3,false,$12511.32
+394,Orland Bawden,07/25/2025,11/03/2025,24,M,Respiratory,Medication,8,5,false,$15360.94
+395,Marris Cremins,07/13/2025,12/24/2025,5,F,Cardiac,Medication,1,3,false,$28227.82
+396,Susi Agney,02/08/2025,11/16/2025,68,M,Neurological,Medication,6,9,false,$48846.63
+397,Jareb Schach,05/14/2025,12/27/2025,87,F,Orthopedic,Surgery,7,8,false,$10209.51
+398,Garold Gatenby,10/25/2025,11/06/2025,24,F,Neurological,Observation,6,9,false,$30610.74
+399,Ody Wheeliker,01/23/2025,11/10/2025,20,M,Neurological,Physical Therapy,2,2,true,$24847.94
+400,Arlen Coulthard,06/01/2025,12/11/2025,43,F,Cardiac,Surgery,8,10,false,$43840.88
+401,Goddart Cameli,12/01/2024,11/02/2025,61,F,Cardiac,Surgery,5,4,true,$16929.94
+402,Forest Grigorey,01/31/2025,11/17/2025,4,M,Respiratory,Physical Therapy,3,1,true,$43971.20
+403,Jennifer Hemphill,06/07/2025,12/13/2025,71,M,Neurological,Observation,7,6,false,$17940.04
+404,Bertina Ebben,02/19/2025,12/08/2025,20,M,Neurological,Medication,10,10,false,$5092.59
+405,Lenee Wank,03/06/2025,11/21/2025,57,M,Neurological,Physical Therapy,3,1,true,$10041.97
+406,Norry Stogill,08/15/2025,12/23/2025,85,M,Orthopedic,Physical Therapy,9,10,true,$15689.01
+407,Goran Lonie,12/11/2024,12/13/2025,97,F,Neurological,Physical Therapy,9,2,false,$47851.60
+408,Emmalynne Sandercock,08/30/2025,12/07/2025,24,M,Cardiac,Medication,3,9,false,$46495.47
+409,Sidonia Sambell,03/27/2025,11/16/2025,20,M,Neurological,Medication,10,6,false,$3381.09
+410,Jaime Mintrim,01/28/2025,11/02/2025,43,M,Cardiac,Observation,8,2,false,$30280.65
+411,Suzi Yuryaev,08/30/2025,12/20/2025,59,M,Cardiac,Physical Therapy,9,7,true,$46280.35
+412,Loy Kearle,06/11/2025,11/28/2025,11,M,Cardiac,Surgery,8,8,true,$43375.74
+413,Pascale Sullens,09/19/2025,12/03/2025,3,M,Respiratory,Physical Therapy,2,4,false,$12698.80
+414,Benny Redolfi,07/26/2025,11/29/2025,97,F,Respiratory,Physical Therapy,1,8,true,$31813.99
+415,Briano Bendel,04/22/2025,12/06/2025,33,M,Cardiac,Physical Therapy,2,9,false,$29960.87
+416,Steffen Cadden,02/28/2025,11/15/2025,65,F,Respiratory,Surgery,9,5,false,$45360.27
+417,Lynda Goodread,02/04/2025,11/08/2025,74,M,Orthopedic,Observation,3,6,false,$15128.58
+418,Merralee Arlott,12/04/2024,12/18/2025,46,M,Neurological,Physical Therapy,4,6,true,$26607.82
+419,Bertina Arcase,05/14/2025,11/05/2025,97,F,Respiratory,Surgery,9,2,true,$40507.69
+420,Beale Diggins,08/23/2025,11/09/2025,99,F,Neurological,Surgery,4,1,true,$44381.19
+421,Wolfy Lambshine,04/20/2025,12/12/2025,91,M,Neurological,Physical Therapy,9,2,true,$30162.98
+422,Abigail Kelling,10/05/2025,12/23/2025,56,M,Neurological,Medication,10,9,true,$49992.16
+423,Jerrilee Zorzin,02/14/2025,11/08/2025,72,F,Cardiac,Surgery,1,8,true,$32146.36
+424,Kipper Roizin,05/01/2025,12/08/2025,89,F,Respiratory,Physical Therapy,8,8,false,$43922.96
+425,Stirling Zamora,09/30/2025,11/08/2025,56,M,Cardiac,Medication,10,8,true,$47458.97
+426,Staffard Burkman,04/12/2025,11/13/2025,33,M,Orthopedic,Physical Therapy,2,3,true,$28451.52
+427,Gail Titterington,06/15/2025,11/22/2025,54,M,Respiratory,Observation,9,5,false,$34065.60
+428,Deina Warbey,06/30/2025,11/10/2025,10,M,Respiratory,Observation,10,9,true,$30199.65
+429,Edgardo McCreadie,01/28/2025,11/29/2025,50,M,Neurological,Observation,5,2,false,$12733.82
+430,Ezechiel Arlidge,06/28/2025,12/26/2025,60,M,Orthopedic,Surgery,3,3,true,$34191.04
+431,Quent Linfield,04/23/2025,11/06/2025,44,F,Neurological,Surgery,4,3,false,$41535.33
+432,Rhett Hastler,07/20/2025,11/18/2025,48,M,Respiratory,Medication,9,8,true,$16724.75
+433,Mair McNelly,10/24/2025,12/11/2025,17,M,Cardiac,Surgery,6,8,false,$32055.20
+434,Manuel Simkovitz,05/26/2025,12/29/2025,63,F,Neurological,Surgery,2,5,true,$5277.82
+435,Ferd Petegree,05/28/2025,12/19/2025,99,F,Respiratory,Medication,9,2,false,$30832.71
+436,Nissa Pickin,05/31/2025,12/10/2025,70,F,Cardiac,Observation,3,4,true,$36729.74
+437,Harlene Bristoe,12/29/2024,11/26/2025,49,F,Cardiac,Surgery,9,1,false,$38842.31
+438,Jarred Comberbeach,05/29/2025,12/26/2025,93,F,Neurological,Medication,3,1,true,$27155.99
+439,Eugine Throughton,04/19/2025,12/16/2025,96,F,Respiratory,Observation,5,7,true,$32978.40
+440,Dyanna Heugel,06/16/2025,11/17/2025,49,F,Orthopedic,Observation,9,2,false,$6216.43
+441,Berton Cappleman,06/03/2025,12/02/2025,63,M,Orthopedic,Medication,5,6,false,$15536.08
+442,Jordan Aucott,02/17/2025,12/05/2025,8,M,Neurological,Surgery,3,3,true,$38611.10
+443,Carrie Bidwell,07/11/2025,12/27/2025,87,M,Respiratory,Medication,5,7,false,$14149.17
+444,Anjela Schonfelder,02/13/2025,12/10/2025,49,M,Cardiac,Observation,8,7,false,$16702.67
+445,Raeann Priddle,01/29/2025,11/07/2025,75,F,Neurological,Physical Therapy,2,2,false,$4466.50
+446,Gwendolyn Bertome,07/01/2025,11/10/2025,75,M,Cardiac,Observation,10,10,false,$41908.88
+447,Tomasine Cowderoy,08/13/2025,12/09/2025,41,M,Orthopedic,Surgery,6,3,false,$35242.73
+448,Ronica Drinkwater,03/28/2025,12/14/2025,50,M,Cardiac,Physical Therapy,4,2,true,$25928.64
+449,Walker Coat,05/18/2025,11/18/2025,55,M,Neurological,Medication,10,9,true,$47391.98
+450,Wittie Killiner,06/17/2025,12/06/2025,5,F,Neurological,Medication,5,7,false,$46869.51
+451,Jarrid Tomblin,03/22/2025,12/07/2025,3,F,Neurological,Surgery,1,5,false,$40552.61
+452,Bartlet Silverson,10/08/2025,12/14/2025,23,M,Neurological,Medication,6,10,true,$27480.05
+453,Kirsteni Pikhno,05/15/2025,12/03/2025,80,F,Neurological,Observation,10,10,false,$2649.78
+454,Wenona Bendare,07/13/2025,12/01/2025,96,F,Respiratory,Surgery,10,3,false,$10049.23
+455,Hy Shergold,04/23/2025,11/27/2025,72,F,Neurological,Medication,6,7,false,$23619.22
+456,Elsi Bromehead,06/09/2025,11/11/2025,44,F,Orthopedic,Observation,10,5,true,$20607.36
+457,Munroe Mattioli,03/20/2025,12/27/2025,48,F,Cardiac,Medication,9,2,true,$10671.81
+458,Darrin Le-Good,03/31/2025,12/01/2025,12,M,Cardiac,Medication,6,7,true,$19475.45
+459,Langsdon Sanchiz,06/24/2025,12/23/2025,52,F,Orthopedic,Surgery,8,1,true,$36346.83
+460,Christine Crick,02/05/2025,11/14/2025,52,M,Respiratory,Medication,1,2,false,$22286.03
+461,Izak Goodwill,09/03/2025,11/08/2025,12,F,Respiratory,Observation,3,7,false,$26083.18
+462,Leora Sweeting,03/09/2025,11/05/2025,25,M,Neurological,Surgery,9,7,true,$8983.36
+463,Emile Rantoull,01/09/2025,11/12/2025,18,F,Orthopedic,Surgery,2,10,true,$11984.23
+464,Barnard Carnell,04/03/2025,11/25/2025,89,F,Respiratory,Observation,10,10,false,$29969.87
+465,Nadiya Bowick,12/12/2024,12/28/2025,58,F,Neurological,Medication,2,8,false,$12591.41
+466,Clare Ludlow,04/15/2025,12/18/2025,60,M,Cardiac,Physical Therapy,6,8,false,$38723.32
+467,Tate Laugharne,05/15/2025,12/26/2025,96,M,Orthopedic,Physical Therapy,3,10,true,$16315.08
+468,Johnnie Moulson,08/13/2025,12/28/2025,38,F,Cardiac,Physical Therapy,10,7,false,$47061.82
+469,Eva Lammers,05/12/2025,12/08/2025,48,M,Neurological,Medication,3,3,true,$36857.62
+470,Steffane Aylett,08/28/2025,11/25/2025,33,F,Cardiac,Medication,5,5,false,$38165.33
+471,Giovanna Tapley,05/19/2025,11/30/2025,55,M,Cardiac,Surgery,2,4,true,$20527.75
+472,Dominga Rundall,06/01/2025,12/24/2025,36,M,Cardiac,Surgery,3,8,true,$29881.56
+473,Tandi Cassley,04/09/2025,11/07/2025,70,M,Respiratory,Observation,2,8,false,$41979.64
+474,Zitella Stapford,12/28/2024,12/20/2025,93,F,Cardiac,Observation,7,5,false,$19246.29
+475,Tanya Cheshire,09/03/2025,12/14/2025,78,F,Neurological,Medication,5,2,false,$36207.43
+476,Thadeus Sawart,12/07/2024,11/07/2025,75,F,Neurological,Medication,2,4,true,$2884.23
+477,Tabb Knoller,03/26/2025,12/03/2025,23,F,Orthopedic,Surgery,4,3,false,$15673.48
+478,Michail Pallaske,10/19/2025,11/17/2025,94,F,Respiratory,Medication,1,4,true,$15894.41
+479,Bertram Gurnee,10/20/2025,11/27/2025,53,F,Orthopedic,Physical Therapy,2,5,false,$18617.16
+480,Philly Selvester,03/09/2025,12/24/2025,19,F,Neurological,Surgery,9,4,true,$17959.25
+481,Brit Karpov,01/08/2025,12/18/2025,36,F,Cardiac,Medication,6,4,false,$36994.56
+482,Rossy Dreakin,10/25/2025,12/12/2025,46,M,Respiratory,Medication,7,9,false,$28031.31
+483,Karine Stean,02/10/2025,11/11/2025,20,M,Orthopedic,Medication,8,10,true,$40003.04
+484,Far Postlewhite,08/28/2025,12/19/2025,1,F,Orthopedic,Surgery,4,1,false,$34704.68
+485,Ronny McBrady,06/04/2025,11/11/2025,54,M,Neurological,Observation,6,7,false,$39839.63
+486,Gillian Penticost,09/15/2025,11/05/2025,72,M,Neurological,Observation,4,2,false,$44728.82
+487,Deena Clink,05/25/2025,11/13/2025,62,F,Respiratory,Surgery,2,5,true,$3547.09
+488,Dulcia Dalby,03/12/2025,11/26/2025,25,M,Respiratory,Observation,2,3,true,$13434.79
+489,Doro Matzl,08/18/2025,12/16/2025,71,F,Orthopedic,Medication,8,8,false,$15310.78
+490,Lavina Fairfull,06/14/2025,12/09/2025,57,F,Cardiac,Medication,5,4,true,$3121.01
+491,Huntley Langford,03/03/2025,11/14/2025,62,M,Neurological,Observation,9,7,true,$27266.59
+492,Ginni Mungin,01/17/2025,11/25/2025,80,M,Neurological,Medication,2,2,false,$31774.75
+493,Jase Pennigar,12/05/2024,11/30/2025,16,M,Neurological,Medication,7,6,true,$16714.23
+494,Syman Jessel,12/31/2024,12/24/2025,6,F,Respiratory,Surgery,10,5,false,$10527.17
+495,Samuele Newton,04/04/2025,12/02/2025,36,F,Neurological,Physical Therapy,4,4,true,$21294.76
+496,Glennie Glowach,08/13/2025,11/27/2025,34,M,Respiratory,Physical Therapy,6,1,true,$47162.26
+497,Daffie Pottiphar,09/12/2025,11/18/2025,97,F,Orthopedic,Observation,8,9,false,$39986.75
+498,Helene Dufaire,03/17/2025,11/27/2025,23,F,Cardiac,Surgery,8,3,false,$16509.49
+499,Christoper Labroue,04/13/2025,11/24/2025,37,F,Neurological,Medication,2,3,false,$12496.16
+500,Aindrea Baptie,04/05/2025,12/22/2025,32,M,Cardiac,Medication,4,5,true,$31874.97
