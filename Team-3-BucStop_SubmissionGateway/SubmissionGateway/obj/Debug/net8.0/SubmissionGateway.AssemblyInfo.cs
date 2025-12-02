@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SubmissionGateway")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01102d54bc1add2a6d8b9a80df4b24a04408b77b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0d0d0b311cd32cf1d3d8efd73e1797305442eca")]
 [assembly: System.Reflection.AssemblyProductAttribute("SubmissionGateway")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SubmissionGateway")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
